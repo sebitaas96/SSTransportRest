@@ -1,11 +1,20 @@
 package com.rest.transport.entities;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 public class Direccion {
 	
@@ -19,11 +28,26 @@ public class Direccion {
 	
 	private int numero;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
 	private Localidad direccionDeLocalidad;
 
+	@OneToMany(mappedBy="recogidaDeDireccion" , cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Viaje> recogidas;
+	
+	@OneToMany(mappedBy="entregaDeDireccion" , cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Viaje> entregas;
+	
+	@OneToMany(mappedBy="residenteDeDireccion" , cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Usuario> residentes;
+	
 	public Direccion() {
-		
+		this.recogidas = new ArrayList<Viaje>();
+		this.entregas = new ArrayList<Viaje>();
+		this.residentes = new ArrayList<Usuario>();
 	}
 
 	public Direccion(String tipo, String nombre, int numero, Localidad direccionDeLocalidad) {
@@ -33,6 +57,9 @@ public class Direccion {
 		this.numero = numero;
 		this.direccionDeLocalidad = direccionDeLocalidad;
 		this.direccionDeLocalidad.getDirecciones().add(this);
+		this.recogidas = new ArrayList<Viaje>();
+		this.entregas = new ArrayList<Viaje>();
+		this.residentes = new ArrayList<Usuario>();
 	}
 
 	public Long getId() {
@@ -73,7 +100,33 @@ public class Direccion {
 
 	public void setDireccionDeLocalidad(Localidad direccionDeLocalidad) {
 		this.direccionDeLocalidad = direccionDeLocalidad;
+		this.direccionDeLocalidad.getDirecciones().add(this);
 	}
+
+	public Collection<Viaje> getRecogidas() {
+		return recogidas;
+	}
+
+	public void setRecogidas(Collection<Viaje> recogidas) {
+		this.recogidas = recogidas;
+	}
+
+	public Collection<Viaje> getEntregas() {
+		return entregas;
+	}
+
+	public void setEntregas(Collection<Viaje> entregas) {
+		this.entregas = entregas;
+	}
+
+	public Collection<Usuario> getResidentes() {
+		return residentes;
+	}
+
+	public void setResidentes(Collection<Usuario> residentes) {
+		this.residentes = residentes;
+	}
+	
 	
 	
 	

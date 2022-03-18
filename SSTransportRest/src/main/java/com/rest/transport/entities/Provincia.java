@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 public class Provincia {
 
@@ -20,21 +24,32 @@ public class Provincia {
 	
 	private String nombre;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
 	private Pais provinciaDePais;
 
 	@OneToMany(mappedBy = "localidadDeProvincia", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Collection<Localidad> localidades;
+	
+	@OneToMany(mappedBy = "operadorDeProvincia" , cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Usuario> operadores;
 	
 	public Provincia() {
 		this.localidades = new ArrayList<Localidad>();
+		this.operadores = new ArrayList<Usuario>();
 	}
+
+
 
 	public Provincia(String nombre,Pais provinciaDePais) {
 		this.nombre = nombre;
 		this.provinciaDePais = provinciaDePais;
 		this.provinciaDePais.getProvincias().add(this);
 		this.localidades = new ArrayList<Localidad>();
+		this.operadores = new ArrayList<Usuario>();
+		
 	}
 
 	public Long getId() {
@@ -59,6 +74,7 @@ public class Provincia {
 
 	public void setProvinciaDePais(Pais provinciaDePais) {
 		this.provinciaDePais = provinciaDePais;
+		this.provinciaDePais.getProvincias().add(this);
 	}
 
 	public Collection<Localidad> getLocalidades() {
@@ -69,6 +85,13 @@ public class Provincia {
 		this.localidades = localidades;
 	}
 	
+	public Collection<Usuario> getOperadores() {
+		return operadores;
+	}
+
+	public void setOperadores(Collection<Usuario> operadores) {
+		this.operadores = operadores;
+	}
 	
 	
 }

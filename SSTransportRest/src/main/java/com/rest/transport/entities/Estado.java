@@ -16,26 +16,27 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-public class Pais {
-	
+public class Estado {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(unique = true)
-	private String nombre;
+	private String tipoEstado;
 	
-	@OneToMany(mappedBy = "provinciaDePais", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "viajeDeEstado" , cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Provincia> provincias;
-
-	public Pais() {
-		this.provincias = new ArrayList<Provincia>();
+	private Collection<Viaje> viajes;
+	
+	public Estado() {
+		this.viajes = new ArrayList<Viaje>();
 	}
 
-	public Pais(String nombre) {
-		this.nombre = nombre;
-		this.provincias = new ArrayList<Provincia>();
+	public Estado(String tipoEstado) {
+		super();
+		this.tipoEstado = tipoEstado;
+		this.viajes = new ArrayList<Viaje>();
 	}
 
 	public Long getId() {
@@ -46,22 +47,22 @@ public class Pais {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getTipoEstado() {
+		return tipoEstado;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setTipoEstado(String tipoEstado) {
+		this.tipoEstado = tipoEstado;
 	}
 
-	public Collection<Provincia> getProvincias() {
-		return provincias;
+	public Collection<Viaje> getViajes() {
+		return viajes;
 	}
 
-	public void setProvincias(Collection<Provincia> provincias) {
-		this.provincias = provincias;
+	public void setViajes(Collection<Viaje> viajes) {
+		this.viajes = viajes;
 	}
 	
 	
-
+	
 }

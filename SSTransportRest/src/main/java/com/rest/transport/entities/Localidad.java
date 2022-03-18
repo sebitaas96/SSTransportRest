@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 public class Localidad {
 	
@@ -22,10 +26,12 @@ public class Localidad {
 	
 	private int cp;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
 	private Provincia localidadDeProvincia;
 	
 	@OneToMany(mappedBy = "direccionDeLocalidad", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Collection<Direccion> direcciones;
 
 	public Localidad() {
@@ -33,7 +39,6 @@ public class Localidad {
 	}
 
 	public Localidad(String nombre, int cp, Provincia localidadDeProvincia) {
-		super();
 		this.nombre = nombre;
 		this.cp = cp;
 		this.localidadDeProvincia = localidadDeProvincia;
@@ -71,6 +76,7 @@ public class Localidad {
 
 	public void setLocalidadDeProvincia(Provincia localidadDeProvincia) {
 		this.localidadDeProvincia = localidadDeProvincia;
+		this.localidadDeProvincia.getLocalidades().add(this);
 	}
 
 	public Collection<Direccion> getDirecciones() {
