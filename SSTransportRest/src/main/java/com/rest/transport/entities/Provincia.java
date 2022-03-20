@@ -34,11 +34,11 @@ public class Provincia {
 	
 	@OneToMany(mappedBy = "operadorDeProvincia" , cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Usuario> operadores;
+	private Collection<Empresa> operadores;
 	
 	public Provincia() {
 		this.localidades = new ArrayList<Localidad>();
-		this.operadores = new ArrayList<Usuario>();
+		this.operadores = new ArrayList<Empresa>();
 	}
 
 
@@ -48,7 +48,7 @@ public class Provincia {
 		this.provinciaDePais = provinciaDePais;
 		this.provinciaDePais.getProvincias().add(this);
 		this.localidades = new ArrayList<Localidad>();
-		this.operadores = new ArrayList<Usuario>();
+		this.operadores = new ArrayList<Empresa>();
 		
 	}
 
@@ -85,11 +85,11 @@ public class Provincia {
 		this.localidades = localidades;
 	}
 	
-	public Collection<Usuario> getOperadores() {
+	public Collection<Empresa> getOperadores() {
 		return operadores;
 	}
 
-	public void setOperadores(Collection<Usuario> operadores) {
+	public void setOperadores(Collection<Empresa> operadores) {
 		this.operadores = operadores;
 	}
 	

@@ -19,8 +19,7 @@ public class Viaje {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	
-	@Column(unique = true)
+	@Column(unique=true)
 	private String vId;
 	
 	private float precio;
@@ -39,30 +38,32 @@ public class Viaje {
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
-	private Estado viajeDeEstado;
+	private Transporte viajeDeTransporte;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
-	private TipoRemolque viajeDeTipoRemolque;
+	private Conductor viajeDeConductor;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
 	private Camion viajeDeCamion;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne 
-	private Rol viajeDeRol;
+	@ManyToOne
+	private TipoRemolque viajeDeTipoRemolque;
 	
 	@OneToOne
-	private Pago pagoViaje;
+	private Pago pago;
 	
-	public Viaje() {
-		
-	}
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	@ManyToOne
+	private Estado viajeDeEstado;
+	
+	public Viaje() {}
 
 	public Viaje(String vId, float precio, Date fHoraInicio, Date fHoraFin, Direccion recogidaDeDireccion,
-			Direccion entregaDeDireccion, Estado viajeDeEstado, TipoRemolque viajeDeTipoRemolque, Camion viajeDeCamion,
-			Rol viajeDeRol, Pago pagoViaje) {
+			Direccion entregaDeDireccion, Transporte viajeDeTransporte, Conductor viajeDeConductor,
+			Camion viajeDeCamion, TipoRemolque viajeDeTipoRemolque, Pago pago, Estado viajeDeEstado) {
 		super();
 		this.vId = vId;
 		this.precio = precio;
@@ -72,15 +73,17 @@ public class Viaje {
 		this.recogidaDeDireccion.getRecogidas().add(this);
 		this.entregaDeDireccion = entregaDeDireccion;
 		this.entregaDeDireccion.getEntregas().add(this);
-		this.viajeDeEstado = viajeDeEstado;
-		this.viajeDeEstado.getViajes().add(this);
-		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
-		this.viajeDeTipoRemolque.getViajes().add(this);
+		this.viajeDeTransporte = viajeDeTransporte;
+		this.viajeDeTransporte.getViajes().add(this);
+		this.viajeDeConductor = viajeDeConductor;
+		this.viajeDeConductor.getViajes().add(this);
 		this.viajeDeCamion = viajeDeCamion;
 		this.viajeDeCamion.getViajes().add(this);
-		this.viajeDeRol = viajeDeRol;
-		this.viajeDeRol.getViajes().add(this);
-		this.pagoViaje = pagoViaje;
+		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
+		this.viajeDeTipoRemolque.getViajes().add(this);
+		this.pago = pago;
+		this.viajeDeEstado = viajeDeEstado;
+		this.viajeDeEstado.getViajes().add(this);
 	}
 
 	public Long getId() {
@@ -141,22 +144,22 @@ public class Viaje {
 		this.entregaDeDireccion.getEntregas().add(this);
 	}
 
-	public Estado getViajeDeEstado() {
-		return viajeDeEstado;
+	public Transporte getViajeDeTransporte() {
+		return viajeDeTransporte;
 	}
 
-	public void setViajeDeEstado(Estado viajeDeEstado) {
-		this.viajeDeEstado = viajeDeEstado;
-		this.viajeDeEstado.getViajes().add(this);
+	public void setViajeDeTransporte(Transporte viajeDeTransporte) {
+		this.viajeDeTransporte = viajeDeTransporte;
+		this.viajeDeTransporte.getViajes().add(this);
 	}
 
-	public TipoRemolque getViajeDeTipoRemolque() {
-		return viajeDeTipoRemolque;
+	public Conductor getViajeDeConductor() {
+		return viajeDeConductor;
 	}
 
-	public void setViajeDeTipoRemolque(TipoRemolque viajeDeTipoRemolque) {
-		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
-		this.viajeDeTipoRemolque.getViajes().add(this);
+	public void setViajeDeConductor(Conductor viajeDeConductor) {
+		this.viajeDeConductor = viajeDeConductor;
+		this.viajeDeConductor.getViajes().add(this);
 	}
 
 	public Camion getViajeDeCamion() {
@@ -168,23 +171,31 @@ public class Viaje {
 		this.viajeDeCamion.getViajes().add(this);
 	}
 
-	public Rol getViajeDeRol() {
-		return viajeDeRol;
+	public TipoRemolque getViajeDeTipoRemolque() {
+		return viajeDeTipoRemolque;
 	}
 
-	public void setViajeDeRol(Rol viajeDeRol) {
-		this.viajeDeRol = viajeDeRol;
-		this.viajeDeRol.getViajes().add(this);
+	public void setViajeDeTipoRemolque(TipoRemolque viajeDeTipoRemolque) {
+		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
+		this.viajeDeTipoRemolque.getViajes().add(this);
 	}
 
-	public Pago getPagoViaje() {
-		return pagoViaje;
+	public Pago getPago() {
+		return pago;
 	}
 
-	public void setPagoViaje(Pago pagoViaje) {
-		this.pagoViaje = pagoViaje;
+	public void setPago(Pago pago) {
+		this.pago = pago;
 	}
-	
+
+	public Estado getViajeDeEstado() {
+		return viajeDeEstado;
+	}
+
+	public void setViajeDeEstado(Estado viajeDeEstado) {
+		this.viajeDeEstado = viajeDeEstado;
+		this.viajeDeEstado.getViajes().add(this);
+	}
 	
 	
 	

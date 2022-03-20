@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Remolque {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -21,31 +21,26 @@ public class Remolque {
 	
 	private boolean estado;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	private Transporte remolqueDeTransporte;
+	
+	@ManyToOne
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private TipoRemolque remolqueDeTipoRemolque;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
-	private Usuario remolqueDeUsuario;
-	
-	public Remolque() {
-		
-	}
-	
-	
-	public Remolque(String matricula, boolean estado, TipoRemolque remolqueDeTipoRemolque,
-			Usuario remolqueDeUsuario) {
+	public Remolque() {}
+
+	public Remolque(String matricula, boolean estado, Transporte remolqueDeTransporte,
+			TipoRemolque remolqueDeTipoRemolque) {
 		super();
 		this.matricula = matricula;
 		this.estado = estado;
+		this.remolqueDeTransporte = remolqueDeTransporte;
+		this.remolqueDeTransporte.getRemolques().add(this);
 		this.remolqueDeTipoRemolque = remolqueDeTipoRemolque;
 		this.remolqueDeTipoRemolque.getRemolques().add(this);
-		this.remolqueDeUsuario = remolqueDeUsuario;
-		this.remolqueDeUsuario.getRemolques().add(this);
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -71,6 +66,15 @@ public class Remolque {
 		this.estado = estado;
 	}
 
+	public Transporte getRemolqueDeTransporte() {
+		return remolqueDeTransporte;
+	}
+
+	public void setRemolqueDeTransporte(Transporte remolqueDeTransporte) {
+		this.remolqueDeTransporte = remolqueDeTransporte;
+		this.remolqueDeTransporte.getRemolques().add(this);
+	}
+
 	public TipoRemolque getRemolqueDeTipoRemolque() {
 		return remolqueDeTipoRemolque;
 	}
@@ -79,15 +83,8 @@ public class Remolque {
 		this.remolqueDeTipoRemolque = remolqueDeTipoRemolque;
 		this.remolqueDeTipoRemolque.getRemolques().add(this);
 	}
-
-	public Usuario getRemolqueDeUsuario() {
-		return remolqueDeUsuario;
-	}
-
-	public void setRemolqueDeUsuario(Usuario remolqueDeUsuario) {
-		this.remolqueDeUsuario = remolqueDeUsuario;
-		this.remolqueDeUsuario.getRemolques().add(this);
-	}
+	
+	
 	
 	
 }

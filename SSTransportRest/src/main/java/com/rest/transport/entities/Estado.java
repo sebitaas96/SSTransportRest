@@ -23,9 +23,9 @@ public class Estado {
 	private Long id;
 	
 	@Column(unique = true)
-	private String tipoEstado;
+	private String nombre;
 	
-	@OneToMany(mappedBy = "viajeDeEstado" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="viajeDeEstado", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Viaje> viajes;
 	
@@ -33,9 +33,9 @@ public class Estado {
 		this.viajes = new ArrayList<Viaje>();
 	}
 
-	public Estado(String tipoEstado) {
+	public Estado(String nombre) {
 		super();
-		this.tipoEstado = tipoEstado;
+		this.nombre = nombre;
 		this.viajes = new ArrayList<Viaje>();
 	}
 
@@ -47,12 +47,12 @@ public class Estado {
 		this.id = id;
 	}
 
-	public String getTipoEstado() {
-		return tipoEstado;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setTipoEstado(String tipoEstado) {
-		this.tipoEstado = tipoEstado;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public Collection<Viaje> getViajes() {
@@ -62,6 +62,7 @@ public class Estado {
 	public void setViajes(Collection<Viaje> viajes) {
 		this.viajes = viajes;
 	}
+	
 	
 	
 	

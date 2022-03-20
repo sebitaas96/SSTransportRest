@@ -22,34 +22,27 @@ public class Rol {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true)
+	@Column(unique=true)
 	private String nombre;
 	
-	@OneToMany(mappedBy = "rolDeUsuario" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "transporteDeRol", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Usuario> usuarios;
+	private Collection<Transporte> transportes;
 	
-	
-	@OneToMany(mappedBy = "viajeDeRol" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "conductorDeRol", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Viaje> viajes;
-	
-	@OneToMany(mappedBy = "pagoDeRol" , cascade = CascadeType.ALL)
-	@JsonIgnore
-	private Collection<Pago> pagos;
+	private Collection<Conductor>conductores;
 	
 	public Rol() {
-		this.usuarios = new ArrayList<Usuario>();
-		this.viajes = new ArrayList<Viaje>();
-		this.pagos = new ArrayList<Pago>();
+		this.transportes = new ArrayList<Transporte>();
+		this.conductores = new ArrayList<Conductor>();
 	}
 
 	public Rol(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.usuarios = new ArrayList<Usuario>();
-		this.viajes = new ArrayList<Viaje>();
-		this.pagos = new ArrayList<Pago>();
+		this.transportes = new ArrayList<Transporte>();
+		this.conductores = new ArrayList<Conductor>();
 	}
 
 	public Long getId() {
@@ -68,30 +61,21 @@ public class Rol {
 		this.nombre = nombre;
 	}
 
-	public Collection<Usuario> getUsuarios() {
-		return usuarios;
+	public Collection<Transporte> getTransportes() {
+		return transportes;
 	}
 
-	public void setUsuarios(Collection<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setTransportes(Collection<Transporte> transportes) {
+		this.transportes = transportes;
 	}
 
-	public Collection<Viaje> getViajes() {
-		return viajes;
+	public Collection<Conductor> getConductores() {
+		return conductores;
 	}
 
-	public void setViajes(Collection<Viaje> viajes) {
-		this.viajes = viajes;
+	public void setConductores(Collection<Conductor> conductores) {
+		this.conductores = conductores;
 	}
-
-	public Collection<Pago> getPagos() {
-		return pagos;
-	}
-
-	public void setPagos(Collection<Pago> pagos) {
-		this.pagos = pagos;
-	}
-	
 	
 	
 	

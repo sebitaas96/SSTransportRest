@@ -19,7 +19,7 @@ public class Pago {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true)
+	@Column(unique=true)
 	private String pId;
 	
 	private Date fFactura;
@@ -30,37 +30,26 @@ public class Pago {
 	
 	private float importe;
 	
+	@ManyToOne
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	private Transporte pagoDeTransporte;
 	
-	@OneToOne(mappedBy="pagoViaje")
+	@OneToOne(mappedBy="pago")
 	private Viaje viaje;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
-	private Rol pagoDeRol;
-	
-	
-	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
-	private CuentaBancaria pagoDeCuenta;
-	
-	public Pago() {
-		
-	}
+	public Pago() {}
 
-	public Pago(String pId, Date fFactura, Date fPago, boolean estado, float importe, Viaje viaje, Rol pagoDeRol,
-			CuentaBancaria pagoDeCuenta) {
+	public Pago(String pId, Date fFactura, Date fPago, boolean estado, float importe, Transporte pagoDeTransporte,
+			Viaje viaje) {
 		super();
 		this.pId = pId;
 		this.fFactura = fFactura;
 		this.fPago = fPago;
 		this.estado = estado;
 		this.importe = importe;
+		this.pagoDeTransporte = pagoDeTransporte;
+		this.pagoDeTransporte.getPagos().add(this);
 		this.viaje = viaje;
-		//Añadir el add
-		this.pagoDeRol = pagoDeRol;
-		this.pagoDeRol.getPagos().add(this);
-		this.pagoDeCuenta = pagoDeCuenta;
-		this.pagoDeCuenta.getPagos().add(this);
 	}
 
 	public Long getId() {
@@ -111,6 +100,15 @@ public class Pago {
 		this.importe = importe;
 	}
 
+	public Transporte getPagoDeTransporte() {
+		return pagoDeTransporte;
+	}
+
+	public void setPagoDeTransporte(Transporte pagoDeTransporte) {
+		this.pagoDeTransporte = pagoDeTransporte;
+		this.pagoDeTransporte.getPagos().add(this);
+	}
+
 	public Viaje getViaje() {
 		return viaje;
 	}
@@ -118,25 +116,6 @@ public class Pago {
 	public void setViaje(Viaje viaje) {
 		this.viaje = viaje;
 	}
-
-	public Rol getPagoDeRol() {
-		return pagoDeRol;
-	}
-
-	public void setPagoDeRol(Rol pagoDeRol) {
-		this.pagoDeRol = pagoDeRol;
-		this.pagoDeRol.getPagos().add(this);
-	}
-
-	public CuentaBancaria getPagoDeCuenta() {
-		return pagoDeCuenta;
-	}
-
-	public void setPagoDeCuenta(CuentaBancaria pagoDeCuenta) {
-		this.pagoDeCuenta = pagoDeCuenta;
-		this.pagoDeCuenta.getPagos().add(this);
-	}
-	
 	
 	
 	

@@ -22,25 +22,27 @@ public class TipoRemolque {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true)
-	private String tipo;
+	@Column(unique=true)
+	private String nombre;
 	
-	@OneToMany(mappedBy = "remolqueDeTipoRemolque" , cascade =  CascadeType.ALL)
+	
+	@OneToMany(mappedBy = "remolqueDeTipoRemolque", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Remolque>remolques;
 	
-	@OneToMany(mappedBy = "viajeDeTipoRemolque" , cascade =  CascadeType.ALL)
+	@OneToMany(mappedBy = "viajeDeTipoRemolque", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Viaje> viajes;
+	private Collection<Viaje>viajes;
 	
 	public TipoRemolque() {
 		this.remolques = new ArrayList<Remolque>();
 		this.viajes = new ArrayList<Viaje>();
+		
 	}
 
-	public TipoRemolque(String tipo) {
+	public TipoRemolque(String nombre) {
 		super();
-		this.tipo = tipo;
+		this.nombre = nombre;
 		this.remolques = new ArrayList<Remolque>();
 		this.viajes = new ArrayList<Viaje>();
 	}
@@ -53,12 +55,12 @@ public class TipoRemolque {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public Collection<Remolque> getRemolques() {
@@ -80,7 +82,7 @@ public class TipoRemolque {
 	
 	
 	
+	
+	
 
-	
-	
 }

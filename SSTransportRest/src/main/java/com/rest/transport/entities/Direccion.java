@@ -42,12 +42,12 @@ public class Direccion {
 	
 	@OneToMany(mappedBy="residenteDeDireccion" , cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Usuario> residentes;
+	private Collection<Empresa> residentes;
 	
 	public Direccion() {
 		this.recogidas = new ArrayList<Viaje>();
 		this.entregas = new ArrayList<Viaje>();
-		this.residentes = new ArrayList<Usuario>();
+		this.residentes = new ArrayList<Empresa>();
 	}
 
 	public Direccion(String tipo, String nombre, int numero, Localidad direccionDeLocalidad) {
@@ -59,7 +59,7 @@ public class Direccion {
 		this.direccionDeLocalidad.getDirecciones().add(this);
 		this.recogidas = new ArrayList<Viaje>();
 		this.entregas = new ArrayList<Viaje>();
-		this.residentes = new ArrayList<Usuario>();
+		this.residentes = new ArrayList<Empresa>();
 	}
 
 	public Long getId() {
@@ -119,11 +119,11 @@ public class Direccion {
 		this.entregas = entregas;
 	}
 
-	public Collection<Usuario> getResidentes() {
+	public Collection<Empresa> getResidentes() {
 		return residentes;
 	}
 
-	public void setResidentes(Collection<Usuario> residentes) {
+	public void setResidentes(Collection<Empresa> residentes) {
 		this.residentes = residentes;
 	}
 	

@@ -18,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 public class Camion {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,24 +27,24 @@ public class Camion {
 	
 	private boolean estado;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
-	private Usuario camionDeUsuario;
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	private Transporte camionDeTransporte;
 	
-	@OneToMany(mappedBy="viajeDeCamion" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="viajeDeCamion", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Viaje> viajes;
+	private Collection<Viaje>viajes;
 	
 	public Camion() {
 		this.viajes = new ArrayList<Viaje>();
 	}
-
-	public Camion(String matricula, boolean estado, Usuario camionDeUsuario) {
+	
+	public Camion(String matricula, boolean estado, Transporte camionDeTransporte) {
 		super();
 		this.matricula = matricula;
 		this.estado = estado;
-		this.camionDeUsuario = camionDeUsuario;
-		this.camionDeUsuario.getCamiones().add(this);
+		this.camionDeTransporte = camionDeTransporte;
+		this.camionDeTransporte.getCamiones().add(this);
 		this.viajes = new ArrayList<Viaje>();
 	}
 
@@ -73,13 +72,13 @@ public class Camion {
 		this.estado = estado;
 	}
 
-	public Usuario getCamionDeUsuario() {
-		return camionDeUsuario;
+	public Transporte getCamionDeTransporte() {
+		return camionDeTransporte;
 	}
 
-	public void setCamionDeUsuario(Usuario camionDeUsuario) {
-		this.camionDeUsuario = camionDeUsuario;
-		this.camionDeUsuario.getCamiones().add(this);
+	public void setCamionDeTransporte(Transporte camionDeTransporte) {
+		this.camionDeTransporte = camionDeTransporte;
+		this.camionDeTransporte.getCamiones().add(this);
 	}
 
 	public Collection<Viaje> getViajes() {
@@ -89,7 +88,6 @@ public class Camion {
 	public void setViajes(Collection<Viaje> viajes) {
 		this.viajes = viajes;
 	}
-	
 	
 	
 	
