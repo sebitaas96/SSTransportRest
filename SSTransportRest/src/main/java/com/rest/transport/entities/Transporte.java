@@ -1,11 +1,11 @@
 package com.rest.transport.entities;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,9 +35,7 @@ public class Transporte extends Empresa {
 	@JsonIgnore
 	private Collection<Viaje> viajes;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
-	private Rol transporteDeRol;
+
 	
 	public Transporte() {
 		super();
@@ -51,11 +49,9 @@ public class Transporte extends Empresa {
 
 	
 
-	public Transporte(String nombre, String documento, String email, String telefono, Direccion residenteDeDireccion,
-			Provincia operadorDeProvincia, CuentaBancaria cuentaBancaria , Rol transporteDeRol) {
-		super(nombre, documento, email, telefono, residenteDeDireccion, operadorDeProvincia, cuentaBancaria);
-		this.transporteDeRol = transporteDeRol;
-		this.transporteDeRol.getTransportes().add(this);
+	public Transporte(String nombre, String documento, String email, String telefono,int tipoEmpresa, Direccion residenteDeDireccion,
+			Provincia operadorDeProvincia, Rol empresaDeRol ,CuentaBancaria cuentaBancaria) {
+		super(nombre, documento, email, telefono, residenteDeDireccion, operadorDeProvincia, empresaDeRol,cuentaBancaria);
 		this.conductores = new ArrayList<Conductor>();
 		this.camiones = new ArrayList<Camion>();
 		this.remolques = new ArrayList<Remolque>();
@@ -107,14 +103,7 @@ public class Transporte extends Empresa {
 		this.viajes = viajes;
 	}
 
-	public Rol getTransporteDeRol() {
-		return transporteDeRol;
-	}
 
-	public void setTransporteDeRol(Rol transporteDeRol) {
-		this.transporteDeRol = transporteDeRol;
-		this.transporteDeRol.getTransportes().add(this);
-	}
 	
 	
 	

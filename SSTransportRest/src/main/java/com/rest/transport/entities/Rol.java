@@ -25,23 +25,23 @@ public class Rol {
 	@Column(unique=true)
 	private String nombre;
 	
-	@OneToMany(mappedBy = "transporteDeRol", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "empresaDeRol", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Transporte> transportes;
+	private Collection<Empresa> empresas;
 	
 	@OneToMany(mappedBy = "conductorDeRol", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Conductor>conductores;
 	
 	public Rol() {
-		this.transportes = new ArrayList<Transporte>();
+		this.empresas = new ArrayList<Empresa>();
 		this.conductores = new ArrayList<Conductor>();
 	}
 
 	public Rol(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.transportes = new ArrayList<Transporte>();
+		this.empresas = new ArrayList<Empresa>();
 		this.conductores = new ArrayList<Conductor>();
 	}
 
@@ -61,12 +61,12 @@ public class Rol {
 		this.nombre = nombre;
 	}
 
-	public Collection<Transporte> getTransportes() {
-		return transportes;
+	public Collection<Empresa> getEmpresas() {
+		return empresas;
 	}
 
-	public void setTransportes(Collection<Transporte> transportes) {
-		this.transportes = transportes;
+	public void setEmpresas(Collection<Empresa> empresas) {
+		this.empresas = empresas;
 	}
 
 	public Collection<Conductor> getConductores() {

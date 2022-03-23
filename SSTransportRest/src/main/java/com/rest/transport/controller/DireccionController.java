@@ -26,7 +26,7 @@ public class DireccionController {
 	
 	@GetMapping
     public List<Direccion> r() {
-        return (List<Direccion>) direccionService.findAll();
+        return direccionService.findAll();
     }
 	
 	@PostMapping

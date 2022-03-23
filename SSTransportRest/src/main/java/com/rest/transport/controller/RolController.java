@@ -2,30 +2,26 @@ package com.rest.transport.controller;
 
 import java.util.List;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rest.transport.entities.Localidad;
-import com.rest.transport.service.LocalidadService;
-
+import com.rest.transport.entities.Rol;
+import com.rest.transport.service.RolService;
 
 @RestController
-@RequestMapping("/localidad")
+@RequestMapping("/rol")
 @CrossOrigin(origins = "http://localhost:4200")
-public class LocalidadController {
+public class RolController {
 	
 	@Autowired
-	private LocalidadService localidadService;
+	private RolService rolService;
 	
 	@GetMapping
-    public List<Localidad> r() {
-        return localidadService.findAll();
-    }
-	
+	public List<Rol> r(){
+		return rolService.findAll();
+	}
 
 }

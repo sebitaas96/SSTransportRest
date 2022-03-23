@@ -28,6 +28,8 @@ public abstract class Empresa {
 	
 	private String telefono;
 	
+
+	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
 	private Direccion residenteDeDireccion;
@@ -36,15 +38,21 @@ public abstract class Empresa {
 	@ManyToOne
 	private Provincia operadorDeProvincia;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	@ManyToOne
+	private Rol empresaDeRol;
+	
 	@OneToOne
 	private CuentaBancaria cuentaBancaria;
+	
+
 	
 	public Empresa() {
 		
 	}
 
 	public Empresa(String nombre, String documento, String email, String telefono, Direccion residenteDeDireccion,
-			Provincia operadorDeProvincia, CuentaBancaria cuentaBancaria) {
+			Provincia operadorDeProvincia,Rol empresaDeRol,CuentaBancaria cuentaBancaria) {
 		super();
 		this.nombre = nombre;
 		this.documento = documento;
@@ -54,6 +62,8 @@ public abstract class Empresa {
 		this.residenteDeDireccion.getResidentes().add(this);
 		this.operadorDeProvincia = operadorDeProvincia;
 		this.operadorDeProvincia.getOperadores().add(this);
+		this.empresaDeRol = empresaDeRol;
+		this.empresaDeRol.getEmpresas().add(this);
 		this.cuentaBancaria = cuentaBancaria;
 	}
 
@@ -113,6 +123,24 @@ public abstract class Empresa {
 	public void setOperadorDeProvincia(Provincia operadorDeProvincia) {
 		this.operadorDeProvincia = operadorDeProvincia;
 		this.operadorDeProvincia.getOperadores().add(this);
+	}
+
+	
+	public Rol getEmpresaDeRol() {
+		return empresaDeRol;
+	}
+
+	public void setEmpresaDeRol(Rol empresaDeRol) {
+		this.empresaDeRol = empresaDeRol;
+		this.empresaDeRol.getEmpresas().add(this);
+	}
+
+	public CuentaBancaria getCuentaBancaria() {
+		return cuentaBancaria;
+	}
+
+	public void setCuentaBancaria(CuentaBancaria cuentaBancaria) {
+		this.cuentaBancaria = cuentaBancaria;
 	}
 	
 	
