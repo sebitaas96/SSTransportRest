@@ -19,5 +19,11 @@ public class DireccionService {
 		return direccionRepository.findAll();
 	}
 	
+	public Direccion save(Direccion direccion) {
+		return direccionRepository.save(direccion);
+	}
+	
+	
+	
 	
 }
