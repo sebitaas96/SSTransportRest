@@ -1,11 +1,13 @@
 package com.rest.transport.entities;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
+import com.rest.transport.security.entities.Usuario;
 
 @Entity
 public class CuentaBancaria {
@@ -21,13 +23,13 @@ public class CuentaBancaria {
 	private int iban;
 	
 	@OneToOne(mappedBy="cuentaBancaria")
-	private Empresa empresa;
+	private Usuario empresa;
 	
 	public CuentaBancaria() {
 		
 	}
 
-	public CuentaBancaria(String nombreTitular, String swiftBic, int iban, Empresa empresa) {
+	public CuentaBancaria(String nombreTitular, String swiftBic, int iban, Usuario empresa) {
 		super();
 		this.nombreTitular = nombreTitular;
 		this.swiftBic = swiftBic;
@@ -67,11 +69,11 @@ public class CuentaBancaria {
 		this.iban = iban;
 	}
 
-	public Empresa getEmpresa() {
+	public Usuario getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(Empresa empresa) {
+	public void setEmpresa(Usuario empresa) {
 		this.empresa = empresa;
 	}
 	

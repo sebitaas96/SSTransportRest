@@ -1,10 +1,13 @@
 package com.rest.transport.entities;
 
 import java.util.ArrayList;
+
+
+
+
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,34 +17,22 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.rest.transport.security.entities.Usuario;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-public class Conductor {
+public class Conductor extends Usuario{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nombre;
-	
 	private String apellido;
-	
-	@Column(unique = true)
-	private String documento;
-	
-	@Column(unique = true)
-	private String email;
-	
-	private String telefono;
+
 	
 	@ManyToOne
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private Transporte conductorDeTransporte;
 	
-	
-	@ManyToOne
-	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	private Rol conductorDeRol;
 	
 	@OneToMany(mappedBy = "viajeDeConductor", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -51,20 +42,26 @@ public class Conductor {
 		this.viajes = new ArrayList<Viaje>();
 	}
 
-	public Conductor(String nombre, String apellido, String documento, String email, String telefono,
-			Transporte conductorDeTransporte, Rol conductorDeRol) {
+	
+	/*public Conductor(String nombre, String apellido, String documento, String email, String telefono,
+			Transporte conductorDeTransporte) {
 		super();
-		this.nombre = nombre;
 		this.apellido = apellido;
-		this.documento = documento;
-		this.email = email;
-		this.telefono = telefono;
 		this.conductorDeTransporte = conductorDeTransporte;
 		this.conductorDeTransporte.getConductores().add(this);
-		this.conductorDeRol = conductorDeRol;
-		this.conductorDeRol.getConductores().add(this);
 		this.viajes = new ArrayList<Viaje>();
+	}*/
+
+	public Conductor(String nombre,String nombreUsuario,String apellido, String password, String documento, String email, String telefono,
+			Transporte conductorDeTransporte,Direccion residenteDeDireccion, Provincia operadorDeProvincia, CuentaBancaria cuentaBancaria) {
+		super(nombre, nombreUsuario,password, documento, email, telefono, residenteDeDireccion, operadorDeProvincia, cuentaBancaria);
+		this.apellido = apellido;
+		this.conductorDeTransporte = conductorDeTransporte;
+		this.conductorDeTransporte.getConductores().add(this);
+		this.viajes = new ArrayList<Viaje>();
+		
 	}
+
 
 	public Long getId() {
 		return id;
@@ -74,13 +71,6 @@ public class Conductor {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 
 	public String getApellido() {
 		return apellido;
@@ -90,29 +80,6 @@ public class Conductor {
 		this.apellido = apellido;
 	}
 
-	public String getDocumento() {
-		return documento;
-	}
-
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
 
 	public Transporte getConductorDeTransporte() {
 		return conductorDeTransporte;
@@ -123,14 +90,6 @@ public class Conductor {
 		this.conductorDeTransporte.getConductores().add(this);
 	}
 
-	public Rol getConductorDeRol() {
-		return conductorDeRol;
-	}
-
-	public void setConductorDeRol(Rol conductorDeRol) {
-		this.conductorDeRol = conductorDeRol;
-		this.conductorDeRol.getConductores().add(this);
-	}
 
 	public Collection<Viaje> getViajes() {
 		return viajes;

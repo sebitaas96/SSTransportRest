@@ -2,6 +2,7 @@ package com.rest.transport.entities;
 
 import java.util.ArrayList;
 
+
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -10,10 +11,11 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.rest.transport.security.entities.Usuario;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-public class Transporte extends Empresa {
+public class Transporte extends Usuario {
 	
 	@OneToMany(mappedBy = "conductorDeTransporte", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -49,9 +51,9 @@ public class Transporte extends Empresa {
 
 	
 
-	public Transporte(String nombre, String documento, String email, String telefono,int tipoEmpresa, Direccion residenteDeDireccion,
-			Provincia operadorDeProvincia, Rol empresaDeRol ,CuentaBancaria cuentaBancaria) {
-		super(nombre, documento, email, telefono, residenteDeDireccion, operadorDeProvincia, empresaDeRol,cuentaBancaria);
+	public Transporte(String nombre,String nombreUsuario , String password, String documento, String email, String telefono, Direccion residenteDeDireccion,
+			Provincia operadorDeProvincia,CuentaBancaria cuentaBancaria) {
+		super(nombre,nombreUsuario,password, documento, email, telefono, residenteDeDireccion, operadorDeProvincia,cuentaBancaria);
 		this.conductores = new ArrayList<Conductor>();
 		this.camiones = new ArrayList<Camion>();
 		this.remolques = new ArrayList<Remolque>();

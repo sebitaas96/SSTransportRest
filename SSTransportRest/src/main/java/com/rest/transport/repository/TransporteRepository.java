@@ -3,9 +3,9 @@ package com.rest.transport.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.rest.transport.entities.Rol;
+import com.rest.transport.entities.Transporte;
 
 @Repository
-public interface RolRepository extends JpaRepository<Rol, Long> {
+public interface TransporteRepository extends JpaRepository<Transporte, Long> {
 
 }

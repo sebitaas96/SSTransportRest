@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.rest.transport.security.entities.Usuario;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
@@ -42,12 +43,12 @@ public class Direccion {
 	
 	@OneToMany(mappedBy="residenteDeDireccion" , cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Empresa> residentes;
+	private Collection<Usuario> residentes;
 	
 	public Direccion() {
 		this.recogidas = new ArrayList<Viaje>();
 		this.entregas = new ArrayList<Viaje>();
-		this.residentes = new ArrayList<Empresa>();
+		this.residentes = new ArrayList<Usuario>();
 	}
 
 	public Direccion(String tipo, String nombre, int numero, Localidad direccionDeLocalidad) {
@@ -59,7 +60,7 @@ public class Direccion {
 		this.direccionDeLocalidad.getDirecciones().add(this);
 		this.recogidas = new ArrayList<Viaje>();
 		this.entregas = new ArrayList<Viaje>();
-		this.residentes = new ArrayList<Empresa>();
+		this.residentes = new ArrayList<Usuario>();
 	}
 
 	public Long getId() {
@@ -119,11 +120,11 @@ public class Direccion {
 		this.entregas = entregas;
 	}
 
-	public Collection<Empresa> getResidentes() {
+	public Collection<Usuario> getResidentes() {
 		return residentes;
 	}
 
-	public void setResidentes(Collection<Empresa> residentes) {
+	public void setResidentes(Collection<Usuario> residentes) {
 		this.residentes = residentes;
 	}
 	
