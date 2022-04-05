@@ -94,10 +94,18 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
+        if(bindingResult.hasErrors()) {
             return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
+        }
+        if(!usuarioService.existsByNombreUsuario(loginUsuario.getNombreUsuario())) {
+        	return new ResponseEntity(new Mensaje("Usuario no existe"), HttpStatus.BAD_REQUEST);
+        }
+        
+        
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
+   
+      
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
