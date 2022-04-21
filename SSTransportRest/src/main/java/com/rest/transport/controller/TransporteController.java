@@ -2,6 +2,8 @@ package com.rest.transport.controller;
 
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +24,13 @@ public class TransporteController {
 	TransporteService transporteService;
 	
 	@GetMapping("/{nombreUsuario}/Empresa")
-	public String findByNombreUsuario(@PathVariable("nombreUsuario") String nombreUsuario){
-		Transporte transporte = transporteService.findByNombreUsuario(nombreUsuario); 
-		return transporte.getNombre();
+	public Transporte findByNombreUsuario(@PathVariable("nombreUsuario") String nombreUsuario){
+		return  transporteService.findByNombreUsuario(nombreUsuario); 
+	}
+	
+	@GetMapping("/{idUsuario}/EmpresaId")
+	public Optional<Transporte> findByIdUsuario(@PathVariable("idUsuario") Long idUsuario){
+		return  transporteService.findByIdUsuario(idUsuario); 
 	}
 	
 }

@@ -21,6 +21,7 @@ import javax.persistence.OneToOne;
 
 import org.springframework.data.repository.query.parser.Part.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest.transport.entities.CuentaBancaria;
 import com.rest.transport.entities.Direccion;
@@ -63,8 +64,8 @@ public abstract class Usuario {
 	private Provincia operadorDeProvincia;
 	
 	@Column(nullable=false)
-	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Collection<Rol>roles;
 	
 	@OneToOne(optional=true)
