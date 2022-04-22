@@ -7,9 +7,13 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.rest.transport.entities.Email;
+import com.rest.transport.repository.EmailRepository;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.util.Optional;
 
 
 
@@ -19,19 +23,23 @@ public class EmailService {
 
 	 @Autowired
 	    private JavaMailSender mailSender;
+	
+	 @Autowired
+	 	private EmailRepository mensajeRepository;
+	 
 
-	    public void sendSimpleEmail(String toEmail,
-	                                String body,
-	                                String subject) {
+	    public void sendSimpleEmail(Email mensaje) {
 	        SimpleMailMessage message = new SimpleMailMessage();
 
 	        message.setFrom("onussarasebas@gmail.com");
-	        message.setTo(toEmail);
-	        message.setText(body);
-	        message.setSubject(subject);
+	        message.setTo(mensaje.getDestinatario());
+	        message.setText(mensaje.getTexto() + mensaje.getUrl());
+	        message.setSubject(mensaje.getAsunto());
 
 	        mailSender.send(message);
 	        System.out.println("Mail Send...");
+	        
+	        mensajeRepository.save(mensaje);
 	    }
 
 	    public void sendEmailWithAttachment(String toEmail,
@@ -60,4 +68,14 @@ public class EmailService {
 	
 
 }
+	    
+	    public Optional<Email> findByIdEmpresaEmail(Long idEmpresa , String email) {
+	    	return mensajeRepository.findByInvitacionDeTransporteIdAndDestinatario(idEmpresa, email);
 	    }
+	    
+	    public boolean existsByInvitacionDeTransporteIdAndDestinatario(Long idEmpresa , String email) {
+	    	return mensajeRepository.existsByInvitacionDeTransporteIdAndDestinatario(idEmpresa, email);
+	    }
+	    
+	    
+}

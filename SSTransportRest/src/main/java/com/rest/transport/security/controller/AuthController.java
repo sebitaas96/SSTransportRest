@@ -4,6 +4,7 @@ package com.rest.transport.security.controller;
 import java.text.ParseException;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -116,12 +117,8 @@ public class AuthController {
             		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(), nuevoUsuario.getResidenteDeDireccion() , 
             		nuevoUsuario.getOperadorDeProvincia(),null);
             
-          /*  Set<Rol> roles = new HashSet<>();*/
-            usuario.addUsuarios(rolService.getByRolNombre(RolNombre.ROLE_TRANSPORTE).get());
-           /* if(nuevoUsuario.getRoles().contains("admin"))
-                roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());*/
-          //  usuario.setRoles(roles);
-
+            usuario.addUsuarios(rolService.getByRolNombre(RolNombre.ROLE_PORTE).get());
+            
             direccionRepository.save(nuevoUsuario.getResidenteDeDireccion());
             try {
             	usuarioService.save(usuario);
@@ -155,11 +152,7 @@ public class AuthController {
             		nuevoConductor.getDocumento(),nuevoConductor.getEmail(),nuevoConductor.getTelefono(),nuevoConductor.getConductorDeTransporte(), nuevoConductor.getResidenteDeDireccion() , 
             		nuevoConductor.getOperadorDeProvincia(),null);
             
-          /*  Set<Rol> roles = new HashSet<>();*/
             usuario.addUsuarios(rolService.getByRolNombre(RolNombre.ROLE_CONDUCTOR).get());
-           /* if(nuevoUsuario.getRoles().contains("admin"))
-                roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());*/
-          //  usuario.setRoles(roles);
 
             direccionRepository.save(nuevoConductor.getResidenteDeDireccion());
             try {

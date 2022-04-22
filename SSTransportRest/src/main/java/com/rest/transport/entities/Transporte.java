@@ -37,6 +37,10 @@ public class Transporte extends Usuario {
 	@JsonIgnore
 	private Collection<Viaje> viajes;
 	
+	@OneToMany(mappedBy = "invitacionDeTransporte", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Email> invitaciones;
+	
 
 	
 	public Transporte() {
@@ -46,6 +50,7 @@ public class Transporte extends Usuario {
 		this.remolques = new ArrayList<Remolque>();
 		this.pagos = new ArrayList<Pago>();
 		this.viajes = new ArrayList<Viaje>();
+		this.invitaciones = new ArrayList<Email>();
 	}
 
 
@@ -59,6 +64,7 @@ public class Transporte extends Usuario {
 		this.remolques = new ArrayList<Remolque>();
 		this.pagos = new ArrayList<Pago>();
 		this.viajes = new ArrayList<Viaje>();
+		this.invitaciones = new ArrayList<Email>();
 		
 	}
 
@@ -104,6 +110,18 @@ public class Transporte extends Usuario {
 	public void setViajes(Collection<Viaje> viajes) {
 		this.viajes = viajes;
 	}
+
+
+	public Collection<Email> getInvitaciones() {
+		return invitaciones;
+	}
+
+
+	public void setInvitaciones(Collection<Email> invitaciones) {
+		this.invitaciones = invitaciones;
+	}
+	
+	
 
 
 	
