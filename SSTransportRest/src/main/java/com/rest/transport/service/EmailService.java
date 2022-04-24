@@ -1,6 +1,7 @@
 package com.rest.transport.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,6 +14,7 @@ import com.rest.transport.repository.EmailRepository;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.util.Collection;
 import java.util.Optional;
 
 
@@ -75,6 +77,14 @@ public class EmailService {
 	    
 	    public boolean existsByInvitacionDeTransporteIdAndDestinatario(Long idEmpresa , String email) {
 	    	return mensajeRepository.existsByInvitacionDeTransporteIdAndDestinatario(idEmpresa, email);
+	    }
+	    
+	    public Collection<Email>findAll(Long idEmpresa){
+	    	return mensajeRepository.findByInvitacionDeTransporteId(idEmpresa);
+	    }
+	    
+	    public void deleteEmail(Long idEmail) {
+	    	mensajeRepository.deleteById(idEmail);
 	    }
 	    
 	    
