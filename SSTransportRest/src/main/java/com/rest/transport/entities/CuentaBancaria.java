@@ -1,12 +1,15 @@
 package com.rest.transport.entities;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest.transport.security.entities.Usuario;
 
 @Entity
@@ -20,21 +23,23 @@ public class CuentaBancaria {
 	
 	private String swiftBic;
 	
-	private int iban;
+	@Column(unique = true)
+	private String iban;
 	
-	@OneToOne(mappedBy="cuentaBancaria")
-	private Usuario empresa;
+	@OneToOne(mappedBy="cuentaBancaria" , optional=true)
+	@JsonBackReference
+	private Usuario usuario;
 	
 	public CuentaBancaria() {
 		
 	}
 
-	public CuentaBancaria(String nombreTitular, String swiftBic, int iban, Usuario empresa) {
+	public CuentaBancaria(String nombreTitular, String swiftBic, String iban, Usuario usuario) {
 		super();
 		this.nombreTitular = nombreTitular;
 		this.swiftBic = swiftBic;
 		this.iban = iban;
-		this.empresa = empresa;
+		this.usuario = usuario;
 	}
 
 	public Long getId() {
@@ -61,20 +66,20 @@ public class CuentaBancaria {
 		this.swiftBic = swiftBic;
 	}
 
-	public int getIban() {
+	public String getIban() {
 		return iban;
 	}
 
-	public void setIban(int iban) {
+	public void setIban(String iban) {
 		this.iban = iban;
 	}
 
-	public Usuario getEmpresa() {
-		return empresa;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setEmpresa(Usuario empresa) {
-		this.empresa = empresa;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	

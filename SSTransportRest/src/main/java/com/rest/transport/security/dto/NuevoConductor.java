@@ -32,14 +32,17 @@ public class NuevoConductor {
 	private String telefono;
 	
 	@Column(nullable=false)
+	private boolean estado;
+	
+	@Column(nullable=true)
 	private Direccion residenteDeDireccion;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Provincia operadorDeProvincia;
 	@Column(nullable=true)
 	private CuentaBancaria cuentaBancaria;
 	
-	@Column(nullable=true)
+	@Column(nullable=false)
 	private Transporte conductorDeTransporte;;
 	
     private Collection<String>roles;
@@ -91,6 +94,15 @@ public class NuevoConductor {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 
 	public Direccion getResidenteDeDireccion() {
 		return residenteDeDireccion;
@@ -138,6 +150,15 @@ public class NuevoConductor {
 
 	public void setConductorDeTransporte(Transporte conductorDeTransporte) {
 		this.conductorDeTransporte = conductorDeTransporte;
+	}
+
+	@Override
+	public String toString() {
+		return "NuevoConductor [nombre=" + nombre + ", apellidos=" + apellidos + ", nombreUsuario=" + nombreUsuario
+				+ ", password=" + password + ", documento=" + documento + ", email=" + email + ", telefono=" + telefono
+				+ ", estado=" + estado + ", residenteDeDireccion=" + residenteDeDireccion + ", operadorDeProvincia="
+				+ operadorDeProvincia + ", cuentaBancaria=" + cuentaBancaria + ", conductorDeTransporte="
+				+ conductorDeTransporte + ", roles=" + roles + "]";
 	}
 	
 	

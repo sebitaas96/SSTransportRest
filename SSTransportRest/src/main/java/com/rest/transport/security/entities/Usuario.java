@@ -23,6 +23,8 @@ import org.springframework.data.repository.query.parser.Part.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rest.transport.entities.CuentaBancaria;
 import com.rest.transport.entities.Direccion;
 import com.rest.transport.entities.Provincia;
@@ -56,19 +58,20 @@ public abstract class Usuario {
 
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
+	@ManyToOne(optional=true)
 	private Direccion residenteDeDireccion;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
+	@ManyToOne(optional=true)
 	private Provincia operadorDeProvincia;
 	
-	@Column(nullable=false)
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER , mappedBy="usuarios")
 	@JsonIgnore
 	private Collection<Rol>roles;
+
 	
 	@OneToOne(optional=true)
+	@JsonManagedReference
 	private CuentaBancaria cuentaBancaria;
 	
 
@@ -87,9 +90,7 @@ public abstract class Usuario {
 		this.email = email;
 		this.telefono = telefono;
 		this.residenteDeDireccion = residenteDeDireccion;
-		this.residenteDeDireccion.getResidentes().add(this);
 		this.operadorDeProvincia = operadorDeProvincia;
-		this.operadorDeProvincia.getOperadores().add(this);
 		this.cuentaBancaria = cuentaBancaria;
 		this.roles = new ArrayList<Rol>();
 	}
@@ -191,10 +192,16 @@ public abstract class Usuario {
 	
 	////===================
 
-	public void addUsuarios(Rol rol) {
+	public void addRoles(Rol rol) {
 		this.roles.add(rol);
 		rol.getUsuarios().add(this);
 	}
+	
+	public void removeRoles(Rol rol) {
+		this.roles.remove(rol);
+		rol.getUsuarios().remove(this);
+	}
+	
 
 	
 	

@@ -2,8 +2,7 @@ package com.rest.transport.security.controller;
 
 
 import java.text.ParseException;
-
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.rest.transport.dto.Mensaje;
 import com.rest.transport.entities.Conductor;
+import com.rest.transport.entities.Direccion;
 import com.rest.transport.entities.Transporte;
 import com.rest.transport.repository.DireccionRepository;
 import com.rest.transport.security.dto.JwtDto;
@@ -75,16 +75,15 @@ public class AuthController {
             
       
             Usuario usuario =new Transporte(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), passwordEncoder.encode(nuevoUsuario.getPassword()),
-            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(), nuevoUsuario.getResidenteDeDireccion() , 
-            		nuevoUsuario.getOperadorDeProvincia(),null);
+            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(),null, 
+            		null,null);
             
           /*  Set<Rol> roles = new HashSet<>();*/
-            usuario.addUsuarios(rolService.getByRolNombre(RolNombre.ROLE_TRANSPORTE).get());
+            usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_TRANSPORTE).get());
            /* if(nuevoUsuario.getRoles().contains("admin"))
                 roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());*/
           //  usuario.setRoles(roles);
 
-            direccionRepository.save(nuevoUsuario.getResidenteDeDireccion());
             try {
             	usuarioService.save(usuario);
             	return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
@@ -117,9 +116,8 @@ public class AuthController {
             		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(), nuevoUsuario.getResidenteDeDireccion() , 
             		nuevoUsuario.getOperadorDeProvincia(),null);
             
-            usuario.addUsuarios(rolService.getByRolNombre(RolNombre.ROLE_PORTE).get());
+            usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_PORTE).get());
             
-            direccionRepository.save(nuevoUsuario.getResidenteDeDireccion());
             try {
             	usuarioService.save(usuario);
             	return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
@@ -132,6 +130,7 @@ public class AuthController {
     }
     @PostMapping("/nuevoConductor")
     public ResponseEntity<?> nuevoConductor(@RequestBody NuevoConductor nuevoConductor,BindingResult bindingResult){
+    	System.out.println(nuevoConductor.toString());
         if(bindingResult.hasErrors()) {
         	return new ResponseEntity(new Mensaje("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
         }
@@ -149,12 +148,11 @@ public class AuthController {
             
       
             Usuario usuario =new Conductor(nuevoConductor.getNombre(), nuevoConductor.getNombreUsuario(),nuevoConductor.getApellidos(), passwordEncoder.encode(nuevoConductor.getPassword()),
-            		nuevoConductor.getDocumento(),nuevoConductor.getEmail(),nuevoConductor.getTelefono(),nuevoConductor.getConductorDeTransporte(), nuevoConductor.getResidenteDeDireccion() , 
-            		nuevoConductor.getOperadorDeProvincia(),null);
+            		nuevoConductor.getDocumento(),nuevoConductor.getEmail(),nuevoConductor.getTelefono(),nuevoConductor.isEstado(),nuevoConductor.getConductorDeTransporte(), null, 
+            		null,null);
             
-            usuario.addUsuarios(rolService.getByRolNombre(RolNombre.ROLE_CONDUCTOR).get());
+            usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_CONDUCTOR).get());
 
-            direccionRepository.save(nuevoConductor.getResidenteDeDireccion());
             try {
             	usuarioService.save(usuario);
             	return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
@@ -177,6 +175,7 @@ public class AuthController {
         	return new ResponseEntity(new Mensaje("Usuario no existe"), HttpStatus.BAD_REQUEST);
         }
         
+            
         
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));

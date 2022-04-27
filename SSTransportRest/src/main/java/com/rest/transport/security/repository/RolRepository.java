@@ -13,4 +13,6 @@ import com.rest.transport.security.enums.RolNombre;
 public interface RolRepository extends JpaRepository<Rol, Long>{
 
 	 Optional<Rol> findByRolNombre(RolNombre rolNombre);
+
+
 }

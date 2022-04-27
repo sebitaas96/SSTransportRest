@@ -61,8 +61,8 @@ public class MainSecurity extends WebSecurityConfigurerAdapter{
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http.cors().and().csrf().disable()
 	                .authorizeRequests()
-	                .antMatchers("/auth/**", "/email/**/deofuscar", "/email/**/deleteEmail").permitAll()
-	                .antMatchers("/pais/**" , "/provincia/**", "/usuario/**").anonymous()
+	                .antMatchers("/auth/**", "/email/**/deofuscar", "/email/**/deleteEmail","/pais/**" , "/provincia/**").permitAll()
+	                .antMatchers().anonymous()
 	                .anyRequest().authenticated()
 	                .and()
 	                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)

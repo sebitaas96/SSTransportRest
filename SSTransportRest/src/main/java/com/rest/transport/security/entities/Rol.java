@@ -33,7 +33,7 @@ public class Rol {
 	@Enumerated(EnumType.STRING)
 	private RolNombre rolNombre;
 
-	@ManyToMany(mappedBy="roles",cascade = CascadeType.ALL)
+	@ManyToMany
 	private Collection<Usuario>usuarios;
 
 	

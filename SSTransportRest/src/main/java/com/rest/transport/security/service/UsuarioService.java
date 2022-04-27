@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rest.transport.dto.addCuenta;
+import com.rest.transport.entities.CuentaBancaria;
 import com.rest.transport.security.entities.Usuario;
 import com.rest.transport.security.repository.UsuarioRepository;
 
@@ -21,6 +23,10 @@ public class UsuarioService {
 	
 	    public Optional<Usuario> getByNombreUsuario(String nombreUsuario){
 	        return usuarioRepository.findByNombreUsuario(nombreUsuario);
+	    }
+	    
+	    public Usuario getById(Long idUsuario){
+	    	return usuarioRepository.getById(idUsuario);
 	    }
 	    
 
@@ -39,5 +45,18 @@ public class UsuarioService {
 	    public void save(Usuario usuario){ 	
 	    	usuarioRepository.save(usuario);
 	    }
-	
+	    
+	    public void updatePassword(String pwdNueva , Long idUsuario){
+	    	Usuario u = usuarioRepository.getById(idUsuario);
+	    	u.setPassword(pwdNueva);
+	    	usuarioRepository.save(u);
+	    }
+	    
+	    public void adCuenta(addCuenta dtoAddCuenta) {
+	    	Usuario u = usuarioRepository.getById(dtoAddCuenta.getIdUsuario());
+	    	u.setCuentaBancaria(dtoAddCuenta.getCuentaBancaria());
+	    	usuarioRepository.save(u);
+	    }
+	    
+
 }

@@ -44,7 +44,6 @@ public class Transporte extends Usuario {
 
 	
 	public Transporte() {
-		super();
 		this.conductores = new ArrayList<Conductor>();
 		this.camiones = new ArrayList<Camion>();
 		this.remolques = new ArrayList<Remolque>();

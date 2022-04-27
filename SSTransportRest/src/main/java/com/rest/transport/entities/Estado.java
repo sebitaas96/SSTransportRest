@@ -30,7 +30,7 @@ public class Estado {
 	private Collection<Viaje> viajes;
 	
 	public Estado() {
-		this.viajes = new ArrayList<Viaje>();
+		
 	}
 
 	public Estado(String nombre) {

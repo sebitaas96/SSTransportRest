@@ -36,7 +36,7 @@ public class Camion {
 	private Collection<Viaje>viajes;
 	
 	public Camion() {
-		this.viajes = new ArrayList<Viaje>();
+		
 	}
 	
 	public Camion(String matricula, boolean estado, Transporte camionDeTransporte) {
