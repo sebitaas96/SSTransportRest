@@ -1,3 +1,4 @@
+
 package com.rest.transport.entities;
 
 
@@ -23,22 +24,27 @@ public class Email {
 	private String url;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
+	@ManyToOne(optional=true)
 	private Transporte invitacionDeTransporte;
 
-		
+	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	@ManyToOne(optional=true)
+	private Porte invitacionDePorte;
+	
 	public Email() {
 		
 	}
 	
-	public Email(String destinatario, String asunto, String texto, String url,Transporte invitacionDeTransporte) {
+	public Email(String destinatario, String asunto, String texto, String url,Transporte invitacionDeTransporte , 
+			Porte invitacionDePorte) {
 		super();
 		this.destinatario = destinatario;
 		this.asunto = asunto;
 		this.texto = texto;
 		this.url = url;
 		this.invitacionDeTransporte = invitacionDeTransporte;
-		this.invitacionDeTransporte.getInvitaciones().add(this);
+		this.invitacionDePorte = invitacionDePorte;
 	}
 	
 	
@@ -82,8 +88,19 @@ public class Email {
 
 	public void setInvitacionDeTransporte(Transporte invitacionDeTransporte) {
 		this.invitacionDeTransporte = invitacionDeTransporte;
-		this.invitacionDeTransporte.getInvitaciones().add(this);
+		//this.invitacionDeTransporte.getInvitaciones().add(this);
 	}
+
+	public Porte getInvitacionDePorte() {
+		return invitacionDePorte;
+	}
+
+	public void setInvitacionDePorte(Porte invitacionDePorte) {
+		this.invitacionDePorte = invitacionDePorte;
+		//this.invitacionDePorte.getInvitaciones().add(this);
+	}
+	
+	
 	
 
 	

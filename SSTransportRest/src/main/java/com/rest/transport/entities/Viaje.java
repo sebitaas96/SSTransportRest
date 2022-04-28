@@ -42,11 +42,15 @@ public class Viaje {
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
+	private Expedidor viajeDeExpedidor;
+	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	@ManyToOne
 	private Conductor viajeDeConductor;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
-	private Camion viajeDeCamion;
+	private TipoCamion viajeDeTipoCamion;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne
@@ -62,8 +66,8 @@ public class Viaje {
 	public Viaje() {}
 
 	public Viaje(String vId, float precio, Date fHoraInicio, Date fHoraFin, Direccion recogidaDeDireccion,
-			Direccion entregaDeDireccion, Transporte viajeDeTransporte, Conductor viajeDeConductor,
-			Camion viajeDeCamion, TipoRemolque viajeDeTipoRemolque, Pago pago, Estado viajeDeEstado) {
+			Direccion entregaDeDireccion, Transporte viajeDeTransporte, Expedidor viajeDeExpedidor,Conductor viajeDeConductor,
+			TipoCamion viajeDeTipoCamion, TipoRemolque viajeDeTipoRemolque, Pago pago, Estado viajeDeEstado) {
 		super();
 		this.vId = vId;
 		this.precio = precio;
@@ -75,10 +79,12 @@ public class Viaje {
 		this.entregaDeDireccion.getEntregas().add(this);
 		this.viajeDeTransporte = viajeDeTransporte;
 		this.viajeDeTransporte.getViajes().add(this);
+		this.viajeDeExpedidor = viajeDeExpedidor;
+		this.viajeDeExpedidor.getViajes().add(this);
 		this.viajeDeConductor = viajeDeConductor;
 		this.viajeDeConductor.getViajes().add(this);
-		this.viajeDeCamion = viajeDeCamion;
-		this.viajeDeCamion.getViajes().add(this);
+		this.viajeDeTipoCamion = viajeDeTipoCamion;
+		this.viajeDeTipoCamion.getViajes().add(this);
 		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
 		this.viajeDeTipoRemolque.getViajes().add(this);
 		this.pago = pago;
@@ -152,6 +158,17 @@ public class Viaje {
 		this.viajeDeTransporte = viajeDeTransporte;
 		this.viajeDeTransporte.getViajes().add(this);
 	}
+	
+	
+
+	public Expedidor getViajeDeExpedidor() {
+		return viajeDeExpedidor;
+	}
+
+	public void setViajeDeExpedidor(Expedidor viajeDeExpedidor) {
+		this.viajeDeExpedidor = viajeDeExpedidor;
+		this.viajeDeExpedidor.getViajes().add(this);
+	}
 
 	public Conductor getViajeDeConductor() {
 		return viajeDeConductor;
@@ -162,13 +179,13 @@ public class Viaje {
 		this.viajeDeConductor.getViajes().add(this);
 	}
 
-	public Camion getViajeDeCamion() {
-		return viajeDeCamion;
+	public TipoCamion getViajeDeCamion() {
+		return viajeDeTipoCamion;
 	}
 
-	public void setViajeDeCamion(Camion viajeDeCamion) {
-		this.viajeDeCamion = viajeDeCamion;
-		this.viajeDeCamion.getViajes().add(this);
+	public void setViajeDeCamion(TipoCamion viajeDeTipoCamion) {
+		this.viajeDeTipoCamion = viajeDeTipoCamion;
+		this.viajeDeTipoCamion.getViajes().add(this);
 	}
 
 	public TipoRemolque getViajeDeTipoRemolque() {

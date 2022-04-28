@@ -2,7 +2,7 @@ package com.rest.transport.security.controller;
 
 
 import java.text.ParseException;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.*;
 
 import com.rest.transport.dto.Mensaje;
 import com.rest.transport.entities.Conductor;
-import com.rest.transport.entities.Direccion;
+import com.rest.transport.entities.Expedidor;
+import com.rest.transport.entities.Porte;
 import com.rest.transport.entities.Transporte;
 import com.rest.transport.repository.DireccionRepository;
 import com.rest.transport.security.dto.JwtDto;
 import com.rest.transport.security.dto.LoginUsuario;
 import com.rest.transport.security.dto.NuevoConductor;
+import com.rest.transport.security.dto.NuevoExpedidor;
 import com.rest.transport.security.dto.NuevoUsuario;
 import com.rest.transport.security.entities.Usuario;
 import com.rest.transport.security.enums.RolNombre;
@@ -75,9 +77,8 @@ public class AuthController {
             
       
             Usuario usuario =new Transporte(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), passwordEncoder.encode(nuevoUsuario.getPassword()),
-            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(),null, 
-            		null,null);
-            
+            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(),null,null,null);
+           
           /*  Set<Rol> roles = new HashSet<>();*/
             usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_TRANSPORTE).get());
            /* if(nuevoUsuario.getRoles().contains("admin"))
@@ -112,9 +113,8 @@ public class AuthController {
         }
             
       
-            Usuario usuario =new Transporte(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), passwordEncoder.encode(nuevoUsuario.getPassword()),
-            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(), nuevoUsuario.getResidenteDeDireccion() , 
-            		nuevoUsuario.getOperadorDeProvincia(),null);
+            Usuario usuario =new Porte(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), passwordEncoder.encode(nuevoUsuario.getPassword()),
+            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(), null,null,null);
             
             usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_PORTE).get());
             
@@ -152,6 +152,42 @@ public class AuthController {
             		null,null);
             
             usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_CONDUCTOR).get());
+
+            try {
+            	usuarioService.save(usuario);
+            	return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
+            }
+            catch(Exception e) {
+            	System.out.println(e.getMessage());
+            	return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
+            }
+            
+    }
+    
+    @PostMapping("/nuevoExpedidor")
+    public ResponseEntity<?> nuevoExpedidor(@RequestBody NuevoExpedidor nuevoExpedidor,BindingResult bindingResult){
+    	System.out.println(nuevoExpedidor.toString());
+        if(bindingResult.hasErrors()) {
+        	return new ResponseEntity(new Mensaje("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
+        }
+            
+        if(usuarioService.existsByNombreUsuario(nuevoExpedidor.getNombreUsuario())) {
+        	return new ResponseEntity(new Mensaje("El nombre de usuario ya existe"), HttpStatus.BAD_REQUEST);
+        }	
+            
+        if(usuarioService.existsByEmail(nuevoExpedidor.getEmail())) {
+        	return new ResponseEntity(new Mensaje("Ya hay una cuenta registrada con este email"), HttpStatus.BAD_REQUEST);
+        }
+        if(usuarioService.existsByDocumento(nuevoExpedidor.getDocumento())) {
+        	return new ResponseEntity(new Mensaje("Ya hay una cuenta registrada con este documento"), HttpStatus.BAD_REQUEST);
+        }
+            
+      
+            Usuario usuario =new Expedidor(nuevoExpedidor.getNombre(), nuevoExpedidor.getNombreUsuario(),nuevoExpedidor.getApellidos(), passwordEncoder.encode(nuevoExpedidor.getPassword()),
+            		nuevoExpedidor.getDocumento(),nuevoExpedidor.getEmail(),nuevoExpedidor.getTelefono(),nuevoExpedidor.isEstado(),nuevoExpedidor.getExpedidorDePorte(), null, 
+            		null,null);
+            
+            usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_EXPEDIDOR).get());
 
             try {
             	usuarioService.save(usuario);

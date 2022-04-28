@@ -28,10 +28,15 @@ public class CreateRoles implements CommandLineRunner {
         Rol rolTransporte = new Rol(RolNombre.ROLE_TRANSPORTE);
         Rol rolPorte = new Rol(RolNombre.ROLE_PORTE);
         Rol rolConductor = new Rol(RolNombre.ROLE_CONDUCTOR);
+        Rol rolExpedidor = new Rol(RolNombre.ROLE_EXPEDIDOR);
         rolService.save(rolAdmin);
         rolService.save(rolTransporte);
         rolService.save(rolPorte);
-        rolService.save(rolConductor);*/
+        rolService.save(rolConductor);
+        rolService.save(rolExpedidor);
+        */
+    	
+    	
         
     }
 

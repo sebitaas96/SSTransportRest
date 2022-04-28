@@ -2,13 +2,12 @@ package com.rest.transport.service;
 
 import java.util.Collection;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.rest.transport.dto.CambiarEstadoConductor;
+import com.rest.transport.dto.CambiarEstado;
 import com.rest.transport.entities.Conductor;
 import com.rest.transport.entities.Direccion;
-import com.rest.transport.entities.Transporte;
 import com.rest.transport.repository.ConductorRepository;
 import com.rest.transport.repository.DireccionRepository;
 import com.rest.transport.security.entities.Rol;
@@ -38,8 +37,8 @@ public class ConductorService {
     	conductorRepository.deleteById(idConductor);
     }
     
-    public void CambiarEstado(CambiarEstadoConductor cambiarEstado) {
-    	Conductor c = conductorRepository.getById(cambiarEstado.getIdConductor());
+    public void CambiarEstado(CambiarEstado cambiarEstado) {
+    	Conductor c = conductorRepository.getById(cambiarEstado.getId());
     	c.setEstado(cambiarEstado.isEstado());
     	conductorRepository.save(c);
     }

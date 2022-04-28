@@ -10,6 +10,9 @@ import com.rest.transport.entities.Email;
 public interface EmailRepository extends JpaRepository<Email, Long> {
 
 	Optional<Email>findByInvitacionDeTransporteIdAndDestinatario(Long idEmpresa , String email);
+	Optional<Email>findByInvitacionDePorteIdAndDestinatario(Long idEmpresa , String email);
 	boolean existsByInvitacionDeTransporteIdAndDestinatario(Long idEmpresa , String email);
+	boolean existsByInvitacionDePorteIdAndDestinatario(Long idEmpresa , String email);
 	List<Email>findByInvitacionDeTransporteId(Long idEmpresa);
+	List<Email>findByInvitacionDePorteId(Long idEmpresa);
 }

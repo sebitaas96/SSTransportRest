@@ -62,10 +62,4 @@ public class TransporteService {
 		transporteRepository.saveAndFlush(t);
 	}
 	
-	public void updatePassword(String password , Long idUsuario) {
-		Transporte t = transporteRepository.getById(idUsuario);
-		t.setPassword(password);
-		transporteRepository.saveAndFlush(t);
-	}
-	
 }

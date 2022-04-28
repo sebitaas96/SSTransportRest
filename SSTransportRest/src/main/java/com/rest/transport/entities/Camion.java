@@ -1,18 +1,13 @@
 package com.rest.transport.entities;
 
-import java.util.ArrayList;
-import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -31,21 +26,23 @@ public class Camion {
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private Transporte camionDeTransporte;
 	
-	@OneToMany(mappedBy="viajeDeCamion", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private Collection<Viaje>viajes;
+	@ManyToOne
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	private TipoCamion camionDeTipoCamion;
 	
 	public Camion() {
 		
 	}
 	
-	public Camion(String matricula, boolean estado, Transporte camionDeTransporte) {
+	public Camion(String matricula, boolean estado, Transporte camionDeTransporte,
+			TipoCamion camionDeTipoCamion) {
 		super();
 		this.matricula = matricula;
 		this.estado = estado;
 		this.camionDeTransporte = camionDeTransporte;
 		this.camionDeTransporte.getCamiones().add(this);
-		this.viajes = new ArrayList<Viaje>();
+		this.camionDeTipoCamion = camionDeTipoCamion;
+		this.camionDeTipoCamion.getCamiones().add(this);
 	}
 
 	public Long getId() {
@@ -81,13 +78,16 @@ public class Camion {
 		this.camionDeTransporte.getCamiones().add(this);
 	}
 
-	public Collection<Viaje> getViajes() {
-		return viajes;
+	public TipoCamion getCamionDeTipoCamion() {
+		return camionDeTipoCamion;
 	}
 
-	public void setViajes(Collection<Viaje> viajes) {
-		this.viajes = viajes;
+	public void setCamionDeTipoCamion(TipoCamion camionDeTipoCamion) {
+		this.camionDeTipoCamion = camionDeTipoCamion;
+		this.camionDeTipoCamion.getCamiones().add(this);
 	}
+
+	
 	
 	
 	

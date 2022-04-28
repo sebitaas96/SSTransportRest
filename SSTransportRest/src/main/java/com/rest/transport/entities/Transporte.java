@@ -111,14 +111,14 @@ public class Transporte extends Usuario {
 	}
 
 
-	public Collection<Email> getInvitaciones() {
+	/*public Collection<Email> getInvitaciones() {
 		return invitaciones;
 	}
 
 
 	public void setInvitaciones(Collection<Email> invitaciones) {
 		this.invitaciones = invitaciones;
-	}
+	}*/
 	
 	
 

@@ -2,8 +2,6 @@ package com.rest.transport.controller;
 
 import java.util.Collection;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,35 +13,34 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.rest.transport.dto.CambiarEstado;
 import com.rest.transport.dto.Mensaje;
-import com.rest.transport.entities.Conductor;
-import com.rest.transport.service.ConductorService;
+import com.rest.transport.entities.Expedidor;
+import com.rest.transport.service.ExpedidorService;
 
 @RestController
-@RequestMapping("/conductor")
+@RequestMapping("/expedidor")
 @CrossOrigin(origins = "http://localhost:4200")
-public class ConductorController {
+public class ExpedidorController {
 
 	@Autowired
-	ConductorService conductorService;
+	ExpedidorService expedidorService;
 	
-	
-	
-	@GetMapping("/{nombreUsuario}/ConductorNombre")
-	public Conductor findByNombreConductor(@PathVariable("nombreUsuario") String nombreUsuario){
-		return  conductorService.findByNombreConductor(nombreUsuario); 
+	@GetMapping("/{nombreUsuario}/ExpedidorNombre")
+	public Expedidor findByNombreExpedidor(@PathVariable("nombreUsuario") String nombreUsuario){
+		return  expedidorService.findByNombreConductor(nombreUsuario); 
 	}
 	
-	@GetMapping("/{idTransporte}/findAll")
-	public Collection<Conductor> findByIdUsuario(@PathVariable("idTransporte") Long idTransporte){
-		return  conductorService.findAll(idTransporte);
+	@GetMapping("/{idPorte}/findAll")
+	public Collection<Expedidor> findByIdUsuario(@PathVariable("idPorte") Long idPorte){
+		return  expedidorService.findAll(idPorte);
 	}
 	
-	@PutMapping("/updateConductor")
-	public ResponseEntity<?>updateTransporte(@RequestBody Conductor conductor){
+	@PutMapping("/updateExpedidor")
+	public ResponseEntity<?>updateExpedidor(@RequestBody Expedidor expedidor){
 		try { 
-			conductorService.updateConductor(conductor);
+			expedidorService.updateExpedidor(expedidor);
 			return new ResponseEntity(new Mensaje("Datos actualizados"), HttpStatus.CREATED);
 		}
 		catch(Exception e){
@@ -51,11 +48,11 @@ public class ConductorController {
 		}
 	}
 	
-	 @DeleteMapping("/{idConductor}/deleteConductor")
-	public ResponseEntity<?>delete(@PathVariable("idConductor") Long idConductor){
+	 @DeleteMapping("/{idExpedidor}/deleteExpedidor")
+	public ResponseEntity<?>delete(@PathVariable("idExpedidor") Long idExpedidor){
 		try { 
-			conductorService.deleteConductor(idConductor);
-			return new ResponseEntity(new Mensaje("Conductor eliminado"), HttpStatus.CREATED);
+			expedidorService.deleteExpedidor(idExpedidor);
+			return new ResponseEntity(new Mensaje("Expedidor eliminado"), HttpStatus.CREATED);
 		}
 		catch(Exception e){
 			return new ResponseEntity(new Mensaje("Ha sucedido un error"), HttpStatus.BAD_REQUEST);
@@ -63,14 +60,15 @@ public class ConductorController {
 	}
 	 
 		@PutMapping("/cambiarEstado")
-		public ResponseEntity<?>cambiarEstadoConductor(@RequestBody CambiarEstado cambiarEstado){
+		public ResponseEntity<?>cambiarEstadoExpedidor(@RequestBody CambiarEstado cambiarEstado){
 			try { 
-				conductorService.CambiarEstado(cambiarEstado);
-				return new ResponseEntity(new Mensaje("Conductor activado"), HttpStatus.CREATED);
+				expedidorService.CambiarEstado(cambiarEstado);
+				return new ResponseEntity(new Mensaje("Expedidor activado"), HttpStatus.CREATED);
 			}
 			catch(Exception e){
 				return new ResponseEntity(new Mensaje("Ha sucedido un error"), HttpStatus.BAD_REQUEST);
 			}
 		}
+	
 	
 }

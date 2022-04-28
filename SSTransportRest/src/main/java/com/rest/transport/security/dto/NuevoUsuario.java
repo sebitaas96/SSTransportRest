@@ -30,10 +30,10 @@ public class NuevoUsuario {
 		@Column(nullable=false)
 		private String telefono;
 		
-		@Column(nullable=false)
+		@Column(nullable=true)
 		private Direccion residenteDeDireccion;
 		
-		@Column(nullable=false)
+		@Column(nullable=true)
 		private Provincia operadorDeProvincia;
 		@Column(nullable=true)
 		private CuentaBancaria cuentaBancaria;

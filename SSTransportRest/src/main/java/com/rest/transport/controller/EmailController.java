@@ -42,10 +42,18 @@ public class EmailController {
 	
 	@PostMapping("/nuevo")
 	public ResponseEntity<?>nuevo(@RequestBody Email email , BindingResult bindingResult) {
-		if(emailService.existsByInvitacionDeTransporteIdAndDestinatario(email.getInvitacionDeTransporte().getId(), email.getDestinatario())) {
-			return new ResponseEntity(new Mensaje("Ya has enviado una invitacion a este correo"), HttpStatus.BAD_REQUEST);
+		if(email.getInvitacionDeTransporte()!=null) {
+			if(emailService.existsByInvitacionDeTransporteIdAndDestinatario(email.getInvitacionDeTransporte().getId(), email.getDestinatario())) {
+				return new ResponseEntity(new Mensaje("Ya has enviado una invitacion a este correo"), HttpStatus.BAD_REQUEST);
+			}
 		}
-		 if(usuarioService.existsByEmail(email.getDestinatario())) {
+		else {
+			if(emailService.existsByInvitacionDePorteIdAndDestinatario(email.getInvitacionDePorte().getId(), email.getDestinatario())) {
+				return new ResponseEntity(new Mensaje("Ya has enviado una invitacion a este correo"), HttpStatus.BAD_REQUEST);
+			}
+		}
+
+		if(usuarioService.existsByEmail(email.getDestinatario())) {
 	        return new ResponseEntity(new Mensaje("Ya hay una cuenta registrada con este email"), HttpStatus.BAD_REQUEST);
 	     }
 		DeOfuscarUrl de = new DeOfuscarUrl(); 
@@ -59,16 +67,27 @@ public class EmailController {
 	public Optional<Email> deofuscar(@PathVariable("mensaje") String mensaje){
 		  DeOfuscarUrl de = new DeOfuscarUrl();
 		  Map<String ,String> datos = de.deofuscarUrl(mensaje);
-		  System.out.println(datos.get("q"));
-		  System.out.println(datos.get("e"));
-		  return emailService.findByIdEmpresaEmail(Long.parseLong(datos.get("q")) , datos.get("e")); 
+		  if(datos.get("t").equals("transporte")) {
+			  return emailService.findByIdEmpresaTransporteEmail(Long.parseLong(datos.get("q")) , datos.get("e")); 
+		  }
+		  else {
+			  return emailService.findByIdEmpresaPorteEmail(Long.parseLong(datos.get("q")) , datos.get("e")); 
+		  }
+		  
 	}
+
 	
 	
-	@GetMapping("/{idEmpresa}/findAll")
-	  public Collection<Email> getEmails(@PathVariable("idEmpresa")Long idEmpresa){
-	    return emailService.findAll(idEmpresa);
+	@GetMapping("/{idEmpresa}/findAllTransporte")
+	  public Collection<Email> getEmailsTransporte(@PathVariable("idEmpresa")Long idEmpresa){
+	    return emailService.findAllTransporte(idEmpresa);
 	  }
+	
+	@GetMapping("/{idEmpresa}/findAllPorte")
+	  public Collection<Email> getEmailsPorte(@PathVariable("idEmpresa")Long idEmpresa){
+	    return emailService.findAllPorte(idEmpresa);
+	 }
+	
 	
 	 @DeleteMapping("/{idEmail}/deleteEmail")
 	public ResponseEntity<?>delete(@PathVariable("idEmail") Long idEmail){

@@ -71,16 +71,29 @@ public class EmailService {
 
 }
 	    
-	    public Optional<Email> findByIdEmpresaEmail(Long idEmpresa , String email) {
+	    public Optional<Email> findByIdEmpresaTransporteEmail(Long idEmpresa , String email) {
 	    	return mensajeRepository.findByInvitacionDeTransporteIdAndDestinatario(idEmpresa, email);
+	    }
+	    
+	    public Optional<Email> findByIdEmpresaPorteEmail(Long idEmpresa , String email) {
+	    	return mensajeRepository.findByInvitacionDePorteIdAndDestinatario(idEmpresa, email);
 	    }
 	    
 	    public boolean existsByInvitacionDeTransporteIdAndDestinatario(Long idEmpresa , String email) {
 	    	return mensajeRepository.existsByInvitacionDeTransporteIdAndDestinatario(idEmpresa, email);
 	    }
 	    
-	    public Collection<Email>findAll(Long idEmpresa){
+	    public boolean existsByInvitacionDePorteIdAndDestinatario(Long idEmpresa , String email) {
+	    	return mensajeRepository.existsByInvitacionDePorteIdAndDestinatario(idEmpresa, email);
+	    }
+	    
+	    
+	    public Collection<Email>findAllTransporte(Long idEmpresa){
 	    	return mensajeRepository.findByInvitacionDeTransporteId(idEmpresa);
+	    }
+	    
+	    public Collection<Email>findAllPorte(Long idEmpresa){
+	    	return mensajeRepository.findByInvitacionDePorteId(idEmpresa);
 	    }
 	    
 	    public void deleteEmail(Long idEmail) {

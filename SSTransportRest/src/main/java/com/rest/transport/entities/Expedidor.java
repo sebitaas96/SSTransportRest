@@ -1,10 +1,6 @@
 package com.rest.transport.entities;
 
 import java.util.ArrayList;
-
-
-
-
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -21,7 +17,8 @@ import com.rest.transport.security.entities.Usuario;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-public class Conductor extends Usuario{
+public class Expedidor extends Usuario {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,42 +26,33 @@ public class Conductor extends Usuario{
 	private String apellido;
 	
 	private boolean estado;
-
 	
 	@ManyToOne
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	private Transporte conductorDeTransporte;
+	private Porte expedidorDePorte;
 	
-	
-	@OneToMany(mappedBy = "viajeDeConductor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "viajeDeExpedidor", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Viaje>viajes;
+	private Collection<Viaje> viajes;
+
 	
-	public Conductor() {
+	
+	
+	public Expedidor() {
 		this.viajes = new ArrayList<Viaje>();
 	}
 
-	
-	/*public Conductor(String nombre, String apellido, String documento, String email, String telefono,
-			Transporte conductorDeTransporte) {
-		super();
-		this.apellido = apellido;
-		this.conductorDeTransporte = conductorDeTransporte;
-		this.conductorDeTransporte.getConductores().add(this);
-		this.viajes = new ArrayList<Viaje>();
-	}*/
-
-	public Conductor(String nombre,String nombreUsuario,String apellido, String password, String documento, String email, String telefono,boolean estado,
-			Transporte conductorDeTransporte,Direccion residenteDeDireccion, Provincia operadorDeProvincia, CuentaBancaria cuentaBancaria) {
-		super(nombre, nombreUsuario,password, documento, email, telefono, residenteDeDireccion, operadorDeProvincia, cuentaBancaria);
+	public Expedidor(String nombre, String nombreUsuario, String apellido, String password, String documento, String email,
+			String telefono, boolean estado , Porte expedidorDePorte, Direccion residenteDeDireccion, Provincia operadorDeProvincia,
+			CuentaBancaria cuentaBancaria) {
+		super(nombre, nombreUsuario, password, documento, email, telefono, residenteDeDireccion, operadorDeProvincia,
+				cuentaBancaria);
 		this.apellido = apellido;
 		this.estado = estado;
-		this.conductorDeTransporte = conductorDeTransporte;
-		this.conductorDeTransporte.getConductores().add(this);
+		this.expedidorDePorte = expedidorDePorte;
+		this.expedidorDePorte.getExpedidores().add(this);
 		this.viajes = new ArrayList<Viaje>();
-		
 	}
-
 
 	public Long getId() {
 		return id;
@@ -74,7 +62,6 @@ public class Conductor extends Usuario{
 		this.id = id;
 	}
 
-
 	public String getApellido() {
 		return apellido;
 	}
@@ -83,27 +70,22 @@ public class Conductor extends Usuario{
 		this.apellido = apellido;
 	}
 
-	
-
 	public boolean isEstado() {
 		return estado;
 	}
-
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
-
-	public Transporte getConductorDeTransporte() {
-		return conductorDeTransporte;
+	public Porte getExpedidorDePorte() {
+		return expedidorDePorte;
 	}
 
-	public void setConductorDeTransporte(Transporte conductorDeTransporte) {
-		this.conductorDeTransporte = conductorDeTransporte;
-		this.conductorDeTransporte.getConductores().add(this);
+	public void setExpedidorDePorte(Porte expedidorDePorte) {
+		this.expedidorDePorte = expedidorDePorte;
+		this.expedidorDePorte.getExpedidores().add(this);
 	}
-
 
 	public Collection<Viaje> getViajes() {
 		return viajes;
@@ -112,13 +94,6 @@ public class Conductor extends Usuario{
 	public void setViajes(Collection<Viaje> viajes) {
 		this.viajes = viajes;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
