@@ -25,6 +25,8 @@ public class TipoCamion {
 	@Column(unique=true)
 	private String nombre;
 	
+	private boolean enganche;
+	
 	@OneToMany(mappedBy = "camionDeTipoCamion", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Camion>camiones;
@@ -38,9 +40,10 @@ public class TipoCamion {
 		this.viajes = new ArrayList<Viaje>();
 	}
 	
-	public TipoCamion(String nombre) {
+	public TipoCamion(String nombre , boolean enganche) {
 		super();
 		this.nombre = nombre;
+		this.enganche = enganche;
 		this.camiones = new ArrayList<Camion>();
 		this.viajes = new ArrayList<Viaje>();
 	}
@@ -59,6 +62,16 @@ public class TipoCamion {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	
+
+	public boolean isEnganche() {
+		return enganche;
+	}
+
+	public void setEnganche(boolean enganche) {
+		this.enganche = enganche;
 	}
 
 	public Collection<Camion> getCamiones() {

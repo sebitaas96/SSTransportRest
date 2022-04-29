@@ -40,8 +40,20 @@ public class Conductor extends Usuario{
 	@JsonIgnore
 	private Collection<Viaje>viajes;
 	
+	
+	@OneToMany(mappedBy = "camionDeConductor", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Camion>camiones;
+	
+	
+	@OneToMany(mappedBy = "remolqueDeConductor", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Remolque>remolques;
+	
 	public Conductor() {
 		this.viajes = new ArrayList<Viaje>();
+		this.camiones = new ArrayList<Camion>();
+		this.remolques = new ArrayList<Remolque>();
 	}
 
 	
@@ -62,7 +74,8 @@ public class Conductor extends Usuario{
 		this.conductorDeTransporte = conductorDeTransporte;
 		this.conductorDeTransporte.getConductores().add(this);
 		this.viajes = new ArrayList<Viaje>();
-		
+		this.camiones = new ArrayList<Camion>();
+		this.remolques = new ArrayList<Remolque>();
 	}
 
 

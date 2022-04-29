@@ -6,6 +6,7 @@ package com.rest.transport.security.controller;
 import java.util.Optional;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rest.transport.dto.CambioPassword;
 import com.rest.transport.dto.Mensaje;
 import com.rest.transport.dto.addCuenta;
-import com.rest.transport.entities.CuentaBancaria;
 import com.rest.transport.security.entities.Usuario;
 import com.rest.transport.security.service.UsuarioService;
 
-import junit.framework.Test;
 
 @RestController
 @RequestMapping("/usuario")

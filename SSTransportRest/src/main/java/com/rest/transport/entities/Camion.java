@@ -26,6 +26,10 @@ public class Camion {
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private Transporte camionDeTransporte;
 	
+	@ManyToOne(optional=true)
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	private Conductor camionDeConductor;
+	
 	@ManyToOne
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private TipoCamion camionDeTipoCamion;
@@ -34,13 +38,14 @@ public class Camion {
 		
 	}
 	
-	public Camion(String matricula, boolean estado, Transporte camionDeTransporte,
+	public Camion(String matricula, boolean estado, Transporte camionDeTransporte, Conductor camionDeConductor,
 			TipoCamion camionDeTipoCamion) {
 		super();
 		this.matricula = matricula;
 		this.estado = estado;
 		this.camionDeTransporte = camionDeTransporte;
 		this.camionDeTransporte.getCamiones().add(this);
+		this.camionDeConductor = camionDeConductor;
 		this.camionDeTipoCamion = camionDeTipoCamion;
 		this.camionDeTipoCamion.getCamiones().add(this);
 	}
@@ -76,6 +81,16 @@ public class Camion {
 	public void setCamionDeTransporte(Transporte camionDeTransporte) {
 		this.camionDeTransporte = camionDeTransporte;
 		this.camionDeTransporte.getCamiones().add(this);
+	}
+	
+	
+
+	public Conductor getCamionDeConductor() {
+		return camionDeConductor;
+	}
+
+	public void setCamionDeConductor(Conductor camionDeConductor) {
+		this.camionDeConductor = camionDeConductor;
 	}
 
 	public TipoCamion getCamionDeTipoCamion() {

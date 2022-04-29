@@ -25,6 +25,10 @@ public class Remolque {
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private Transporte remolqueDeTransporte;
 	
+	@ManyToOne(optional=true)
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	private Conductor remolqueDeConductor;
+	
 	@ManyToOne
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private TipoRemolque remolqueDeTipoRemolque;
@@ -32,12 +36,14 @@ public class Remolque {
 	public Remolque() {}
 
 	public Remolque(String matricula, boolean estado, Transporte remolqueDeTransporte,
+			Conductor remolqueDeConductor,
 			TipoRemolque remolqueDeTipoRemolque) {
 		super();
 		this.matricula = matricula;
 		this.estado = estado;
 		this.remolqueDeTransporte = remolqueDeTransporte;
 		this.remolqueDeTransporte.getRemolques().add(this);
+		this.remolqueDeConductor = remolqueDeConductor;
 		this.remolqueDeTipoRemolque = remolqueDeTipoRemolque;
 		this.remolqueDeTipoRemolque.getRemolques().add(this);
 	}
@@ -75,6 +81,15 @@ public class Remolque {
 		this.remolqueDeTransporte.getRemolques().add(this);
 	}
 
+
+	public Conductor getRemolqueDeConductor() {
+		return remolqueDeConductor;
+	}
+
+	public void setRemolqueDeConductor(Conductor remolqueDeConductor) {
+		this.remolqueDeConductor = remolqueDeConductor;
+	}
+
 	public TipoRemolque getRemolqueDeTipoRemolque() {
 		return remolqueDeTipoRemolque;
 	}
@@ -83,6 +98,7 @@ public class Remolque {
 		this.remolqueDeTipoRemolque = remolqueDeTipoRemolque;
 		this.remolqueDeTipoRemolque.getRemolques().add(this);
 	}
+	
 	
 	
 	

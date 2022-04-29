@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Viaje {
@@ -21,6 +22,8 @@ public class Viaje {
 	
 	@Column(unique=true)
 	private String vId;
+	
+	private String descripcion;
 	
 	private float precio;
 	
@@ -57,6 +60,7 @@ public class Viaje {
 	private TipoRemolque viajeDeTipoRemolque;
 	
 	@OneToOne
+	@JsonManagedReference
 	private Pago pago;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
@@ -65,11 +69,12 @@ public class Viaje {
 	
 	public Viaje() {}
 
-	public Viaje(String vId, float precio, Date fHoraInicio, Date fHoraFin, Direccion recogidaDeDireccion,
+	public Viaje(String vId, String descripcion , float precio, Date fHoraInicio, Date fHoraFin, Direccion recogidaDeDireccion,
 			Direccion entregaDeDireccion, Transporte viajeDeTransporte, Expedidor viajeDeExpedidor,Conductor viajeDeConductor,
 			TipoCamion viajeDeTipoCamion, TipoRemolque viajeDeTipoRemolque, Pago pago, Estado viajeDeEstado) {
 		super();
 		this.vId = vId;
+		this.descripcion = descripcion;
 		this.precio = precio;
 		this.fHoraInicio = fHoraInicio;
 		this.fHoraFin = fHoraFin;
@@ -107,6 +112,18 @@ public class Viaje {
 	public void setvId(String vId) {
 		this.vId = vId;
 	}
+	
+	
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+
 
 	public float getPrecio() {
 		return precio;
@@ -179,15 +196,16 @@ public class Viaje {
 		this.viajeDeConductor.getViajes().add(this);
 	}
 
-	public TipoCamion getViajeDeCamion() {
+
+	public TipoCamion getViajeDeTipoCamion() {
 		return viajeDeTipoCamion;
 	}
 
-	public void setViajeDeCamion(TipoCamion viajeDeTipoCamion) {
+	public void setViajeDeTipoCamion(TipoCamion viajeDeTipoCamion) {
 		this.viajeDeTipoCamion = viajeDeTipoCamion;
 		this.viajeDeTipoCamion.getViajes().add(this);
 	}
-
+	
 	public TipoRemolque getViajeDeTipoRemolque() {
 		return viajeDeTipoRemolque;
 	}
