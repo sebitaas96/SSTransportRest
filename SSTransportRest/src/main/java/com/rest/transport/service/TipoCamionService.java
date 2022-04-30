@@ -1,5 +1,7 @@
 package com.rest.transport.service;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ public class TipoCamionService {
 	
 	public void save(TipoCamion tipoCamion) {
 		tipoCamionRepository.save(tipoCamion);
+	}
+	
+	public Collection<TipoCamion> findAll(){
+		return tipoCamionRepository.findAll();
 	}
 	
 }
