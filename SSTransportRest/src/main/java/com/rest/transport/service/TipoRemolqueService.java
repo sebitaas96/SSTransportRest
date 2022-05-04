@@ -1,5 +1,7 @@
 package com.rest.transport.service;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,4 +18,7 @@ public class TipoRemolqueService {
 		tipoRemolqueRepository.save(tipoRemolque);
 	}
 	
+	public Collection<TipoRemolque> findAll(){
+		return tipoRemolqueRepository.findAll();
+	}
 }
