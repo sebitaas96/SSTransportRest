@@ -20,9 +20,14 @@ public class CuentaBancariaService {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	
+
 	 public Optional<CuentaBancaria> findById(Long idCuenta) {
 	    	return cuentaBancariaRepository.findById(idCuenta);
 	  }
+	 
+	 public Optional<CuentaBancaria>findByIban(String iban){
+		 return cuentaBancariaRepository.findByIban(iban);
+	 }
 	 
 	 public CuentaBancaria createCuenta(CuentaBancaria cuentaBancaria) {
 		 return cuentaBancariaRepository.save(cuentaBancaria);
@@ -34,5 +39,9 @@ public class CuentaBancariaService {
 		 c.setNombreTitular(cuentaBancaria.getNombreTitular());
 		 c.setSwiftBic(cuentaBancaria.getSwiftBic());
 		 cuentaBancariaRepository.save(c);
+	 }
+	 
+	 public boolean existsByIban(String iban) {
+		 return cuentaBancariaRepository.existsByIban(iban);
 	 }
 }

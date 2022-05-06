@@ -21,7 +21,7 @@ public class Remolque {
 	
 	private boolean estado;
 	
-	@ManyToOne
+	@ManyToOne(optional=true)
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private Transporte remolqueDeTransporte;
 	
@@ -42,7 +42,6 @@ public class Remolque {
 		this.matricula = matricula;
 		this.estado = estado;
 		this.remolqueDeTransporte = remolqueDeTransporte;
-		this.remolqueDeTransporte.getRemolques().add(this);
 		this.remolqueDeConductor = remolqueDeConductor;
 		this.remolqueDeTipoRemolque = remolqueDeTipoRemolque;
 		this.remolqueDeTipoRemolque.getRemolques().add(this);
@@ -78,7 +77,6 @@ public class Remolque {
 
 	public void setRemolqueDeTransporte(Transporte remolqueDeTransporte) {
 		this.remolqueDeTransporte = remolqueDeTransporte;
-		this.remolqueDeTransporte.getRemolques().add(this);
 	}
 
 

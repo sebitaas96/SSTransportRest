@@ -32,9 +32,24 @@ public class CuentaBancariaController {
 	    return cuentaBancariaService.findById(idCuenta);
 	  }
 	
+	@GetMapping("/{iban}/findCuentaIban")
+	  public Optional<CuentaBancaria> getCuentaIban(@PathVariable("iban")String iban){
+	    return cuentaBancariaService.findByIban(iban);
+	  }
+	
 	@PostMapping("/createCuenta")
-	public CuentaBancaria createCuenta(@RequestBody CuentaBancaria cuentaBancaria){
-		return cuentaBancariaService.createCuenta(cuentaBancaria);
+	public  ResponseEntity<?> createCuenta(@RequestBody CuentaBancaria cuentaBancaria){
+		if(cuentaBancariaService.existsByIban(cuentaBancaria.getIban())) {
+			return new ResponseEntity(new Mensaje("El numero de iban ya esta asociado"), HttpStatus.BAD_REQUEST);
+		}
+		try {
+			cuentaBancariaService.createCuenta(cuentaBancaria);
+			return new ResponseEntity(new Mensaje("Cuenta bancaria añadida"), HttpStatus.CREATED);
+		}	
+		catch(Exception e) {
+			return new ResponseEntity(new Mensaje("Ha sucedido un error"), HttpStatus.BAD_REQUEST);
+		}
+
 	}
 	
 	@PutMapping("/updateCuenta")

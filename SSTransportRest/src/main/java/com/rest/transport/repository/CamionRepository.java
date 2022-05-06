@@ -12,4 +12,5 @@ import com.rest.transport.entities.Camion;
 public interface CamionRepository  extends JpaRepository<Camion, Long>{
 	boolean existsByMatricula(String matricula);
 	Collection<Camion>findByCamionDeTransporteId(Long idEmpresa);
+	Collection<Camion>findByCamionDeConductorId(Long idConductor);
 }

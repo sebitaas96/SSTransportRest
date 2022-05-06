@@ -78,7 +78,7 @@ public class Transporte extends Usuario {
 		this.conductores = conductores;
 	}
 
-	public Collection<Camion> getCamiones() {
+	/*public Collection<Camion> getCamiones() {
 		return camiones;
 	}
 
@@ -92,7 +92,7 @@ public class Transporte extends Usuario {
 
 	public void setRemolques(Collection<Remolque> remolques) {
 		this.remolques = remolques;
-	}
+	}*/
 
 	public Collection<Pago> getPagos() {
 		return pagos;

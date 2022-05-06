@@ -12,4 +12,5 @@ public interface RemolqueRepository extends JpaRepository<Remolque, Long>{
 	
 	boolean existsByMatricula(String matricula);
 	Collection<Remolque>findByRemolqueDeTransporteId(Long idEmpresa);
+	Collection<Remolque>findByRemolqueDeConductorId(Long idConductor);
 }
