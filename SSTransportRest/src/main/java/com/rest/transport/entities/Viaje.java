@@ -40,15 +40,19 @@ public class Viaje {
 	private Direccion entregaDeDireccion;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
+	@ManyToOne(optional=true)
 	private Transporte viajeDeTransporte;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
+	@ManyToOne(optional=true)
+	private Porte viajeDePorte;
+	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	@ManyToOne(optional=true)
 	private Expedidor viajeDeExpedidor;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
+	@ManyToOne(optional=true)
 	private Conductor viajeDeConductor;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
@@ -70,7 +74,7 @@ public class Viaje {
 	public Viaje() {}
 
 	public Viaje(String vId, String descripcion , float precio, Date fHoraInicio, Date fHoraFin, Direccion recogidaDeDireccion,
-			Direccion entregaDeDireccion, Transporte viajeDeTransporte, Expedidor viajeDeExpedidor,Conductor viajeDeConductor,
+			Direccion entregaDeDireccion, Transporte viajeDeTransporte, Expedidor viajeDeExpedidor,Porte viajeDePorte , Conductor viajeDeConductor,
 			TipoCamion viajeDeTipoCamion, TipoRemolque viajeDeTipoRemolque, Pago pago, Estado viajeDeEstado) {
 		super();
 		this.vId = vId;
@@ -83,11 +87,9 @@ public class Viaje {
 		this.entregaDeDireccion = entregaDeDireccion;
 		this.entregaDeDireccion.getEntregas().add(this);
 		this.viajeDeTransporte = viajeDeTransporte;
-		this.viajeDeTransporte.getViajes().add(this);
 		this.viajeDeExpedidor = viajeDeExpedidor;
-		this.viajeDeExpedidor.getViajes().add(this);
+		this.viajeDePorte = viajeDePorte;
 		this.viajeDeConductor = viajeDeConductor;
-		this.viajeDeConductor.getViajes().add(this);
 		this.viajeDeTipoCamion = viajeDeTipoCamion;
 		this.viajeDeTipoCamion.getViajes().add(this);
 		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
@@ -167,7 +169,7 @@ public class Viaje {
 		this.entregaDeDireccion.getEntregas().add(this);
 	}
 
-	public Transporte getViajeDeTransporte() {
+	/*public Transporte getViajeDeTransporte() {
 		return viajeDeTransporte;
 	}
 
@@ -194,7 +196,7 @@ public class Viaje {
 	public void setViajeDeConductor(Conductor viajeDeConductor) {
 		this.viajeDeConductor = viajeDeConductor;
 		this.viajeDeConductor.getViajes().add(this);
-	}
+	}*/
 
 
 	public TipoCamion getViajeDeTipoCamion() {

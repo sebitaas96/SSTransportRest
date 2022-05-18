@@ -25,6 +25,10 @@ public class Porte extends Usuario {
 	@OneToMany(mappedBy = "expedidorDePorte", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Expedidor>expedidores;
+
+	@OneToMany(mappedBy = "viajeDePorte", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Viaje> viajes;
 	
 	@OneToMany(mappedBy = "invitacionDePorte", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -35,6 +39,7 @@ public class Porte extends Usuario {
 	public Porte() {
 		this.expedidores = new ArrayList<Expedidor>();
 		this.invitaciones = new ArrayList<Email>();
+		this.viajes = new ArrayList<Viaje>();
 	}
 
 	public Porte(String nombre, String nombreUsuario, String password, String documento, String email, String telefono,
@@ -44,6 +49,7 @@ public class Porte extends Usuario {
 		
 		this.expedidores = new ArrayList<Expedidor>();
 		this.invitaciones = new ArrayList<Email>();
+		this.viajes = new ArrayList<Viaje>();
 	}
 
 	public Long getId() {
@@ -60,6 +66,14 @@ public class Porte extends Usuario {
 
 	public void setExpedidores(Collection<Expedidor> expedidores) {
 		this.expedidores = expedidores;
+	}
+	
+	public Collection<Viaje> getViajes() {
+		return viajes;
+	}
+
+	public void setViajes(Collection<Viaje> viajes) {
+		this.viajes = viajes;
 	}
 
 	/*public Collection<Email> getInvitaciones() {
