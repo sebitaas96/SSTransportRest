@@ -33,11 +33,11 @@ public class Direccion {
 	@ManyToOne
 	private Localidad direccionDeLocalidad;
 
-	@OneToMany(mappedBy="recogidaDeDireccion" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="recogidaDeDireccion" , cascade = CascadeType.MERGE)
 	@JsonIgnore
 	private Collection<Viaje> recogidas;
 	
-	@OneToMany(mappedBy="entregaDeDireccion" , cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="entregaDeDireccion" , cascade = CascadeType.MERGE)
 	@JsonIgnore
 	private Collection<Viaje> entregas;
 	
@@ -126,6 +126,13 @@ public class Direccion {
 
 	public void setResidentes(Collection<Usuario> residentes) {
 		this.residentes = residentes;
+	}
+
+	@Override
+	public String toString() {
+		return "Direccion [id=" + id + ", tipo=" + tipo + ", nombre=" + nombre + ", numero=" + numero
+				+ ", direccionDeLocalidad=" + direccionDeLocalidad + ", recogidas=" + recogidas + ", entregas="
+				+ entregas + ", residentes=" + residentes + "]";
 	}
 	
 	

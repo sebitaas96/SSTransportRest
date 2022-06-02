@@ -20,12 +20,13 @@ public class Viaje {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique=true)
-	private String vId;
-	
 	private String descripcion;
 	
 	private float precio;
+	
+	private int distancia;
+	
+	private int tiempo;
 	
 	private Date fHoraInicio;
 	
@@ -44,7 +45,7 @@ public class Viaje {
 	private Transporte viajeDeTransporte;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne(optional=true)
+	@ManyToOne
 	private Porte viajeDePorte;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
@@ -60,10 +61,10 @@ public class Viaje {
 	private TipoCamion viajeDeTipoCamion;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
-	@ManyToOne
+	@ManyToOne(optional=true)
 	private TipoRemolque viajeDeTipoRemolque;
 	
-	@OneToOne
+	@OneToOne(optional=true)
 	@JsonManagedReference
 	private Pago pago;
 	
@@ -73,13 +74,14 @@ public class Viaje {
 	
 	public Viaje() {}
 
-	public Viaje(String vId, String descripcion , float precio, Date fHoraInicio, Date fHoraFin, Direccion recogidaDeDireccion,
+	public Viaje(String descripcion , float precio, int distancia, int tiempo, Date fHoraInicio, Date fHoraFin, Direccion recogidaDeDireccion,
 			Direccion entregaDeDireccion, Transporte viajeDeTransporte, Expedidor viajeDeExpedidor,Porte viajeDePorte , Conductor viajeDeConductor,
 			TipoCamion viajeDeTipoCamion, TipoRemolque viajeDeTipoRemolque, Pago pago, Estado viajeDeEstado) {
 		super();
-		this.vId = vId;
 		this.descripcion = descripcion;
 		this.precio = precio;
+		this.distancia = distancia;
+		this.tiempo = tiempo;
 		this.fHoraInicio = fHoraInicio;
 		this.fHoraFin = fHoraFin;
 		this.recogidaDeDireccion = recogidaDeDireccion;
@@ -107,15 +109,7 @@ public class Viaje {
 		this.id = id;
 	}
 
-	public String getvId() {
-		return vId;
-	}
 
-	public void setvId(String vId) {
-		this.vId = vId;
-	}
-	
-	
 
 	public String getDescripcion() {
 		return descripcion;
@@ -133,6 +127,24 @@ public class Viaje {
 
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+	
+	
+
+	public int getDistancia() {
+		return distancia;
+	}
+
+	public void setDistancia(int distancia) {
+		this.distancia = distancia;
+	}
+
+	public int getTiempo() {
+		return tiempo;
+	}
+
+	public void setTiempo(int tiempo) {
+		this.tiempo = tiempo;
 	}
 
 	public Date getfHoraInicio() {
@@ -169,6 +181,7 @@ public class Viaje {
 		this.entregaDeDireccion.getEntregas().add(this);
 	}
 
+	
 	/*public Transporte getViajeDeTransporte() {
 		return viajeDeTransporte;
 	}
@@ -176,20 +189,20 @@ public class Viaje {
 	public void setViajeDeTransporte(Transporte viajeDeTransporte) {
 		this.viajeDeTransporte = viajeDeTransporte;
 		this.viajeDeTransporte.getViajes().add(this);
-	}
+	}*/
 	
 	
 
-	public Expedidor getViajeDeExpedidor() {
+	/*public Expedidor getViajeDeExpedidor() {
 		return viajeDeExpedidor;
 	}
 
 	public void setViajeDeExpedidor(Expedidor viajeDeExpedidor) {
 		this.viajeDeExpedidor = viajeDeExpedidor;
 		this.viajeDeExpedidor.getViajes().add(this);
-	}
+	}*/
 
-	public Conductor getViajeDeConductor() {
+/*	public Conductor getViajeDeConductor() {
 		return viajeDeConductor;
 	}
 
@@ -198,6 +211,14 @@ public class Viaje {
 		this.viajeDeConductor.getViajes().add(this);
 	}*/
 
+
+	public Porte getViajeDePorte() {
+		return viajeDePorte;
+	}
+
+	public void setViajeDePorte(Porte viajeDePorte) {
+		this.viajeDePorte = viajeDePorte;
+	}
 
 	public TipoCamion getViajeDeTipoCamion() {
 		return viajeDeTipoCamion;
@@ -208,15 +229,14 @@ public class Viaje {
 		this.viajeDeTipoCamion.getViajes().add(this);
 	}
 	
-	public TipoRemolque getViajeDeTipoRemolque() {
+/*	public TipoRemolque getViajeDeTipoRemolque() {
 		return viajeDeTipoRemolque;
 	}
 
 	public void setViajeDeTipoRemolque(TipoRemolque viajeDeTipoRemolque) {
 		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
 		this.viajeDeTipoRemolque.getViajes().add(this);
-	}
-
+	}*/
 	public Pago getPago() {
 		return pago;
 	}

@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.rest.transport.entities.Estado;
 import com.rest.transport.entities.TipoCamion;
 import com.rest.transport.entities.TipoRemolque;
 import com.rest.transport.security.entities.Rol;
 import com.rest.transport.security.enums.RolNombre;
 import com.rest.transport.security.service.RolService;
+import com.rest.transport.service.EstadoService;
 import com.rest.transport.service.TipoCamionService;
 import com.rest.transport.service.TipoRemolqueService;
 
@@ -32,6 +34,9 @@ public class CreateDatos implements CommandLineRunner {
     @Autowired
     TipoRemolqueService tipoRemolqueService;
     
+    @Autowired
+    EstadoService estadoService;
+    
 
     @Override
     public void run(String... args) throws Exception {
@@ -47,6 +52,15 @@ public class CreateDatos implements CommandLineRunner {
         rolService.save(rolConductor);
         rolService.save(rolExpedidor);
         */
+    	
+    	/*Estados*/
+    	/*Estado estado1 = new Estado("Expedido");
+    	Estado estado2 = new Estado("Reservado");
+    	Estado estado3 = new Estado("Finalizado");
+    	estadoService.save(estado1);
+    	estadoService.save(estado2);
+    	estadoService.save(estado3);*/
+    	
     	
     	/* Tipo de Camiones*/
     /*	TipoCamion camionEstandar = new TipoCamion("Tractora estandar" , true);
