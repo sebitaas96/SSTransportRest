@@ -11,5 +11,7 @@ import com.rest.transport.entities.Viaje;
 @Repository
 public interface ViajeRepository extends JpaRepository<Viaje, Long> {
 	Collection<Viaje>findByViajeDePorteId(Long idEmpresa);
+	Collection<Viaje>findByViajeDeEstadoId(Long idEstado);
 	Collection<Viaje>findByViajeDeExpedidorId(Long idExpedidor);
+	
 }

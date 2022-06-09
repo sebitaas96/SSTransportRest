@@ -54,6 +54,12 @@ public class ViajeService {
 		
 	}
 	
+	public Collection<Viaje>findAllPanel(){
+		Long estado = (long) 1;
+		return viajeRepository.findByViajeDeEstadoId(estado);
+		
+	}
+	
 	public Collection<Viaje>findAllExpedidor(Long idExpedidor){
 		return viajeRepository.findByViajeDeExpedidorId(idExpedidor);
 		

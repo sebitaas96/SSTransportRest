@@ -44,6 +44,11 @@ public class ViajeController {
 		return this.viajeService.findAll(idEmpresa);
 	}
 	
+	@GetMapping("/findAllPanel")
+	public Collection<Viaje>findAllPanel(){
+		return this.viajeService.findAllPanel();
+	}
+	
 	@GetMapping("/{idExpedidor}/findAllExpedidor")
 	public Collection<Viaje>findAllExpedidor(@PathVariable("idExpedidor")Long idExpedidor){
 		return this.viajeService.findAllExpedidor(idExpedidor);
