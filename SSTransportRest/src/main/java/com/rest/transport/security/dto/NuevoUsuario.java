@@ -3,6 +3,7 @@ package com.rest.transport.security.dto;
 
 import java.util.Collection;
 
+
 import javax.persistence.Column;
 
 import com.rest.transport.entities.CuentaBancaria;

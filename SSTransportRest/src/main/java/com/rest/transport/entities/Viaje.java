@@ -182,34 +182,34 @@ public class Viaje {
 	}
 
 	
-	/*public Transporte getViajeDeTransporte() {
+	public Transporte getViajeDeTransporte() {
 		return viajeDeTransporte;
 	}
 
 	public void setViajeDeTransporte(Transporte viajeDeTransporte) {
 		this.viajeDeTransporte = viajeDeTransporte;
 		this.viajeDeTransporte.getViajes().add(this);
-	}*/
+	}
 	
 	
 
-	/*public Expedidor getViajeDeExpedidor() {
+	public Expedidor getViajeDeExpedidor() {
 		return viajeDeExpedidor;
 	}
 
 	public void setViajeDeExpedidor(Expedidor viajeDeExpedidor) {
 		this.viajeDeExpedidor = viajeDeExpedidor;
 		this.viajeDeExpedidor.getViajes().add(this);
-	}*/
+	}
 
-/*	public Conductor getViajeDeConductor() {
+	public Conductor getViajeDeConductor() {
 		return viajeDeConductor;
 	}
 
 	public void setViajeDeConductor(Conductor viajeDeConductor) {
 		this.viajeDeConductor = viajeDeConductor;
 		this.viajeDeConductor.getViajes().add(this);
-	}*/
+	}
 
 
 	public Porte getViajeDePorte() {
@@ -229,14 +229,15 @@ public class Viaje {
 		this.viajeDeTipoCamion.getViajes().add(this);
 	}
 	
-/*	public TipoRemolque getViajeDeTipoRemolque() {
+	public TipoRemolque getViajeDeTipoRemolque() {
 		return viajeDeTipoRemolque;
 	}
 
 	public void setViajeDeTipoRemolque(TipoRemolque viajeDeTipoRemolque) {
 		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
 		this.viajeDeTipoRemolque.getViajes().add(this);
-	}*/
+	}
+	
 	public Pago getPago() {
 		return pago;
 	}
