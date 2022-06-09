@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rest.transport.dto.Mensaje;
+import com.rest.transport.dto.NuevoViaje;
 import com.rest.transport.entities.Viaje;
 import com.rest.transport.service.ViajeService;
 
@@ -28,9 +29,28 @@ public class ViajeController {
 	ViajeService viajeService;
 	
 	@PostMapping("/nuevo")
-	public ResponseEntity<?>nuevo(@RequestBody Viaje viaje , BindingResult bindingResult){
+	public ResponseEntity<?>nuevo(@RequestBody NuevoViaje nuevoViaje , BindingResult bindingResult){
 		try {
+			Viaje viaje = new Viaje(
+					nuevoViaje.getDescripcion(),
+					nuevoViaje.getPrecio(),
+					nuevoViaje.getDistancia(),
+					nuevoViaje.getTiempo(),
+					nuevoViaje.getfHoraInicio(),
+					nuevoViaje.getfHoraFin(),
+					nuevoViaje.getRecogidaDeDireccion(),
+					nuevoViaje.getEntregaDeDireccion(),
+					nuevoViaje.getViajeDeTransporte(),
+					nuevoViaje.getViajeDeExpedidor(),
+					nuevoViaje.getViajeDePorte(),
+					nuevoViaje.getViajeDeConductor(),
+					nuevoViaje.getViajeDeTipoCamion(),
+					nuevoViaje.getViajeDeTipoRemolque(),
+					nuevoViaje.getPago(),
+					nuevoViaje.getViajeDeEstado()
+					);
 			viajeService.save(viaje);
+	
 		}
 		catch(Exception e) {
 			return new ResponseEntity(new Mensaje("Ha ocurrido un error"), HttpStatus.BAD_REQUEST);
