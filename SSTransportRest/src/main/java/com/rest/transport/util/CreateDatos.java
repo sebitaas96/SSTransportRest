@@ -57,9 +57,11 @@ public class CreateDatos implements CommandLineRunner {
     	/*Estado estado1 = new Estado("Expedido");
     	Estado estado2 = new Estado("Reservado");
     	Estado estado3 = new Estado("Finalizado");
+    	Estado estado4 = new Estado("Caducado");
     	estadoService.save(estado1);
     	estadoService.save(estado2);
-    	estadoService.save(estado3);*/
+    	estadoService.save(estado3);
+    	estadoService.save(estado4);*/
     	
     	
     	/* Tipo de Camiones*/

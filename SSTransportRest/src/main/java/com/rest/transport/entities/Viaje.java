@@ -2,13 +2,13 @@ package com.rest.transport.entities;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -95,7 +95,6 @@ public class Viaje {
 		this.viajeDeTipoCamion = viajeDeTipoCamion;
 		this.viajeDeTipoCamion.getViajes().add(this);
 		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
-		this.viajeDeTipoRemolque.getViajes().add(this);
 		this.pago = pago;
 		this.viajeDeEstado = viajeDeEstado;
 		this.viajeDeEstado.getViajes().add(this);

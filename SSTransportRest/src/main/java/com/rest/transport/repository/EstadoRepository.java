@@ -7,6 +7,5 @@ import com.rest.transport.entities.Estado;
 
 @Repository
 public interface EstadoRepository extends JpaRepository<Estado, Long> {
-
-	
+	Estado findByNombre(String nombre);
 }
