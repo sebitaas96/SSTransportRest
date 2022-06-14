@@ -40,7 +40,7 @@ public class ExpedidorService {
     
     public void CambiarEstado(CambiarEstado cambiarEstado) {
     	Expedidor e = expedidorRepository.getById(cambiarEstado.getId());
-    	e.setEstado(cambiarEstado.isEstado());
+    	e.setActivo(cambiarEstado.isEstado());
     	expedidorRepository.save(e);
     }
     

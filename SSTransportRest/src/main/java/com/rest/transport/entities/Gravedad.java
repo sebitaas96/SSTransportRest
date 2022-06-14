@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-public class Estado {
+public class Gravedad {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -25,18 +25,18 @@ public class Estado {
 	@Column(unique = true)
 	private String nombre;
 	
-	@OneToMany(fetch = FetchType.EAGER , mappedBy="viajeDeEstado", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER , mappedBy="notificacionDeGravedad", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Viaje> viajes;
+	private Collection<Notificacion> notificaciones;
 	
-	public Estado() {
-		this.viajes = new ArrayList<Viaje>();
+	
+	public Gravedad() {
+		this.notificaciones = new ArrayList<Notificacion>();
 	}
-
-	public Estado(String nombre) {
-		super();
+	
+	public Gravedad(String nombre) {
 		this.nombre = nombre;
-		this.viajes = new ArrayList<Viaje>();
+		this.notificaciones = new ArrayList<Notificacion>();
 	}
 
 	public Long getId() {
@@ -55,19 +55,13 @@ public class Estado {
 		this.nombre = nombre;
 	}
 
-	public Collection<Viaje> getViajes() {
-		return viajes;
+	public Collection<Notificacion> getNotificaciones() {
+		return notificaciones;
 	}
 
-	public void setViajes(Collection<Viaje> viajes) {
-		this.viajes = viajes;
+	public void setNotificaciones(Collection<Notificacion> notificaciones) {
+		this.notificaciones = notificaciones;
 	}
-	
-	public void removeViaje(Viaje v) {
-		this.viajes.remove(v);
-		v.setViajeDeEstado(null);
-	}
-	
 	
 	
 	

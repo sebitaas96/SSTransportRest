@@ -25,7 +25,6 @@ public class Expedidor extends Usuario {
 	
 	private String apellido;
 	
-	private boolean estado;
 	
 	@ManyToOne
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
@@ -43,12 +42,11 @@ public class Expedidor extends Usuario {
 	}
 
 	public Expedidor(String nombre, String nombreUsuario, String apellido, String password, String documento, String email,
-			String telefono, boolean estado , Porte expedidorDePorte, Direccion residenteDeDireccion, Provincia operadorDeProvincia,
+			String telefono, boolean activo , Porte expedidorDePorte, Direccion residenteDeDireccion, Provincia operadorDeProvincia,
 			CuentaBancaria cuentaBancaria) {
-		super(nombre, nombreUsuario, password, documento, email, telefono, residenteDeDireccion, operadorDeProvincia,
+		super(nombre, nombreUsuario, password, documento, email, telefono,activo, residenteDeDireccion, operadorDeProvincia,
 				cuentaBancaria);
 		this.apellido = apellido;
-		this.estado = estado;
 		this.expedidorDePorte = expedidorDePorte;
 		this.expedidorDePorte.getExpedidores().add(this);
 		this.viajes = new ArrayList<Viaje>();
@@ -70,13 +68,6 @@ public class Expedidor extends Usuario {
 		this.apellido = apellido;
 	}
 
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
 
 	public Porte getExpedidorDePorte() {
 		return expedidorDePorte;

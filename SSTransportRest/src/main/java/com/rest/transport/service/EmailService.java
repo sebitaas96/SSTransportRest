@@ -43,6 +43,20 @@ public class EmailService {
 	        
 	        mensajeRepository.save(mensaje);
 	    }
+	    
+	    public void sendConfirmationEmail(String email, Long id) {
+	        SimpleMailMessage message = new SimpleMailMessage();
+	        String texto = "Email de confirmacion para acceder a onus:  ";
+	        String url = "http://localhost:4200/confirmacion?q="+id;
+	        message.setFrom("onussarasebas@gmail.com");
+	        message.setTo(email);
+	        message.setText(texto + url);
+	        message.setSubject("Email de confirmacion");
+
+	        mailSender.send(message);
+	        System.out.println("Mail Send...");
+	        
+	    }
 
 	    public void sendEmailWithAttachment(String toEmail,
 	                                        String body,
@@ -99,6 +113,7 @@ public class EmailService {
 	    public void deleteEmail(Long idEmail) {
 	    	mensajeRepository.deleteById(idEmail);
 	    }
-	    
+
+	
 	    
 }

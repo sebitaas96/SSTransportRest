@@ -31,6 +31,9 @@ public class NuevoUsuario {
 		@Column(nullable=false)
 		private String telefono;
 		
+		@Column(nullable=false)
+		private boolean activo;
+		
 		@Column(nullable=true)
 		private Direccion residenteDeDireccion;
 		
@@ -87,6 +90,16 @@ public class NuevoUsuario {
 
 		public void setTelefono(String telefono) {
 			this.telefono = telefono;
+		}
+		
+		
+
+		public boolean isActivo() {
+			return activo;
+		}
+
+		public void setActivo(boolean activo) {
+			this.activo = activo;
 		}
 
 		public Direccion getResidenteDeDireccion() {

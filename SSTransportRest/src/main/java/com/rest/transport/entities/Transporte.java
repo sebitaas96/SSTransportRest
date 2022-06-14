@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rest.transport.security.entities.Usuario;
@@ -54,10 +55,9 @@ public class Transporte extends Usuario {
 
 
 	
-
-	public Transporte(String nombre,String nombreUsuario , String password, String documento, String email, String telefono, Direccion residenteDeDireccion,
+	public Transporte(String nombre,String nombreUsuario , String password, String documento, String email, String telefono,boolean activo,Direccion residenteDeDireccion,
 			Provincia operadorDeProvincia,CuentaBancaria cuentaBancaria) {
-		super(nombre,nombreUsuario,password, documento, email, telefono, residenteDeDireccion, operadorDeProvincia,cuentaBancaria);
+		super(nombre,nombreUsuario,password, documento, email, telefono,activo, residenteDeDireccion, operadorDeProvincia,cuentaBancaria);
 		this.conductores = new ArrayList<Conductor>();
 		this.camiones = new ArrayList<Camion>();
 		this.remolques = new ArrayList<Remolque>();

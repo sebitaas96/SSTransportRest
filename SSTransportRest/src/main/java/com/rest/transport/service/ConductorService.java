@@ -39,7 +39,7 @@ public class ConductorService {
     
     public void CambiarEstado(CambiarEstado cambiarEstado) {
     	Conductor c = conductorRepository.getById(cambiarEstado.getId());
-    	c.setEstado(cambiarEstado.isEstado());
+    	c.setActivo(cambiarEstado.isEstado());
     	conductorRepository.save(c);
     }
     

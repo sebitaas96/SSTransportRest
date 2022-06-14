@@ -6,12 +6,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.rest.transport.entities.Estado;
+import com.rest.transport.entities.EstadoPago;
+import com.rest.transport.entities.Gravedad;
 import com.rest.transport.entities.TipoCamion;
 import com.rest.transport.entities.TipoRemolque;
 import com.rest.transport.security.entities.Rol;
 import com.rest.transport.security.enums.RolNombre;
 import com.rest.transport.security.service.RolService;
+import com.rest.transport.service.EstadoPagoService;
 import com.rest.transport.service.EstadoService;
+import com.rest.transport.service.GravedadService;
 import com.rest.transport.service.TipoCamionService;
 import com.rest.transport.service.TipoRemolqueService;
 
@@ -37,6 +41,12 @@ public class CreateDatos implements CommandLineRunner {
     @Autowired
     EstadoService estadoService;
     
+    @Autowired
+    EstadoPagoService estadoPagoService;
+    
+    @Autowired
+    GravedadService gravedadService;
+    
 
     @Override
     public void run(String... args) throws Exception {
@@ -58,11 +68,29 @@ public class CreateDatos implements CommandLineRunner {
     	Estado estado2 = new Estado("Reservado");
     	Estado estado3 = new Estado("Finalizado");
     	Estado estado4 = new Estado("Caducado");
+    	Estado estado5 = new Estado("Transito");
     	estadoService.save(estado1);
     	estadoService.save(estado2);
     	estadoService.save(estado3);
-    	estadoService.save(estado4);*/
+    	estadoService.save(estado4);
+    	estadoService.save(estado5);*/
     	
+    	
+    	/*EstadoPago estadopag1 = new EstadoPago("Pendiente");
+    	EstadoPago estadopag2= new EstadoPago("Pagado");
+    	EstadoPago estadopag3 = new EstadoPago("Rechazado");
+    	EstadoPago estadopag4 = new EstadoPago("Disputando");
+    	estadoPagoService.save(estadopag1);
+    	estadoPagoService.save(estadopag2);
+    	estadoPagoService.save(estadopag3);
+    	estadoPagoService.save(estadopag4);*/
+    	
+    	/*Gravedad gravedad1 = new Gravedad("Success");
+    	Gravedad gravedad2 = new Gravedad("Error");
+    	Gravedad gravedad3 = new Gravedad("Warning");
+    	gravedadService.save(gravedad1);
+    	gravedadService.save(gravedad2);
+    	gravedadService.save(gravedad3);*/
     	
     	/* Tipo de Camiones*/
     /*	TipoCamion camionEstandar = new TipoCamion("Tractora estandar" , true);

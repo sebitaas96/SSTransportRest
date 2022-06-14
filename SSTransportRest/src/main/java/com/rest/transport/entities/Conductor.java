@@ -28,7 +28,6 @@ public class Conductor extends Usuario{
 	
 	private String apellido;
 	
-	private boolean estado;
 
 	
 	@ManyToOne
@@ -66,11 +65,10 @@ public class Conductor extends Usuario{
 		this.viajes = new ArrayList<Viaje>();
 	}*/
 
-	public Conductor(String nombre,String nombreUsuario,String apellido, String password, String documento, String email, String telefono,boolean estado,
+	public Conductor(String nombre,String nombreUsuario,String apellido, String password, String documento, String email, String telefono,boolean activo,
 			Transporte conductorDeTransporte,Direccion residenteDeDireccion, Provincia operadorDeProvincia, CuentaBancaria cuentaBancaria) {
-		super(nombre, nombreUsuario,password, documento, email, telefono, residenteDeDireccion, operadorDeProvincia, cuentaBancaria);
+		super(nombre, nombreUsuario,password, documento, email, telefono,activo, residenteDeDireccion, operadorDeProvincia, cuentaBancaria);
 		this.apellido = apellido;
-		this.estado = estado;
 		this.conductorDeTransporte = conductorDeTransporte;
 		this.conductorDeTransporte.getConductores().add(this);
 		this.viajes = new ArrayList<Viaje>();
@@ -98,15 +96,6 @@ public class Conductor extends Usuario{
 
 	
 
-	public boolean isEstado() {
-		return estado;
-	}
-
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
-
 
 	public Transporte getConductorDeTransporte() {
 		return conductorDeTransporte;
@@ -118,15 +107,13 @@ public class Conductor extends Usuario{
 	}
 
 
-	public Collection<Viaje> getViajes() {
-		return viajes;
-	}
-
-	public void setViajes(Collection<Viaje> viajes) {
-		this.viajes = viajes;
-	}
 	
+	//
 	
+	public void removeViaje(Viaje v) {
+		this.viajes.remove(v);
+		v.setViajeDeConductor(null);
+	}
 	
 	
 	

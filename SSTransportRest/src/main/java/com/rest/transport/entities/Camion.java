@@ -1,13 +1,19 @@
 package com.rest.transport.entities;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -34,8 +40,12 @@ public class Camion {
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private TipoCamion camionDeTipoCamion;
 	
+	@OneToMany(mappedBy = "viajeDeCamion", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Viaje>viajes;
+	
 	public Camion() {
-		
+		this.viajes = new ArrayList<Viaje>();
 	}
 	
 	public Camion(String matricula, boolean estado, Transporte camionDeTransporte, Conductor camionDeConductor,
@@ -47,6 +57,7 @@ public class Camion {
 		this.camionDeConductor = camionDeConductor;
 		this.camionDeTipoCamion = camionDeTipoCamion;
 		this.camionDeTipoCamion.getCamiones().add(this);
+		this.viajes = new ArrayList<Viaje>();
 	}
 
 	public Long getId() {
@@ -99,6 +110,14 @@ public class Camion {
 		this.camionDeTipoCamion = camionDeTipoCamion;
 		this.camionDeTipoCamion.getCamiones().add(this);
 	}
+
+
+	public void removeViaje(Viaje v) {
+		this.viajes.remove(v);
+		v.setViajeDeCamion(null);
+	}
+	
+	
 
 	
 	

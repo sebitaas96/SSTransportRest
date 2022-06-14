@@ -66,7 +66,13 @@ public class ConductorController {
 		public ResponseEntity<?>cambiarEstadoConductor(@RequestBody CambiarEstado cambiarEstado){
 			try { 
 				conductorService.CambiarEstado(cambiarEstado);
-				return new ResponseEntity(new Mensaje("Conductor activado"), HttpStatus.CREATED);
+				if(cambiarEstado.isEstado()) {
+					return new ResponseEntity(new Mensaje("Conductor activado"), HttpStatus.CREATED);	
+				}
+				else {
+					return new ResponseEntity(new Mensaje("Conductor desactivado"), HttpStatus.CREATED);	
+				}
+				
 			}
 			catch(Exception e){
 				return new ResponseEntity(new Mensaje("Ha sucedido un error"), HttpStatus.BAD_REQUEST);

@@ -20,14 +20,10 @@ public class Pago {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique=true)
-	private String pId;
-	
 	private Date fFactura;
 	
+	@Column(nullable = true)
 	private Date fPago;
-	
-	private boolean estado;
 	
 	private float importe;
 	
@@ -35,22 +31,35 @@ public class Pago {
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	private Transporte pagoDeTransporte;
 	
+	@ManyToOne
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	private Porte pagoDePorte;
+	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	@ManyToOne
+	private EstadoPago pagoDeEstadoPago;
+	
 	@OneToOne(mappedBy="pago")
 	@JsonBackReference
 	private Viaje viaje;
 	
+	
+	
 	public Pago() {}
 
-	public Pago(String pId, Date fFactura, Date fPago, boolean estado, float importe, Transporte pagoDeTransporte,
-			Viaje viaje) {
+	public Pago( Date fFactura, Date fPago,  float importe, Transporte pagoDeTransporte,
+			Porte pagoDePorte,
+			EstadoPago pagoDeEstadoPago, Viaje viaje) {
 		super();
-		this.pId = pId;
 		this.fFactura = fFactura;
 		this.fPago = fPago;
-		this.estado = estado;
 		this.importe = importe;
 		this.pagoDeTransporte = pagoDeTransporte;
 		this.pagoDeTransporte.getPagos().add(this);
+		this.pagoDePorte = pagoDePorte;
+		this.pagoDePorte.getPagos().add(this);
+		this.pagoDeEstadoPago = pagoDeEstadoPago;
+		this.pagoDeEstadoPago.getPagos().add(this);
 		this.viaje = viaje;
 	}
 
@@ -62,13 +71,7 @@ public class Pago {
 		this.id = id;
 	}
 
-	public String getpId() {
-		return pId;
-	}
 
-	public void setpId(String pId) {
-		this.pId = pId;
-	}
 
 	public Date getfFactura() {
 		return fFactura;
@@ -86,13 +89,6 @@ public class Pago {
 		this.fPago = fPago;
 	}
 
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
 
 	public float getImporte() {
 		return importe;
@@ -109,6 +105,25 @@ public class Pago {
 	public void setPagoDeTransporte(Transporte pagoDeTransporte) {
 		this.pagoDeTransporte = pagoDeTransporte;
 		this.pagoDeTransporte.getPagos().add(this);
+	}
+	
+
+	public Porte getPagoDePorte() {
+		return pagoDePorte;
+	}
+
+	public void setPagoDePorte(Porte pagoDePorte) {
+		this.pagoDePorte = pagoDePorte;
+		this.pagoDePorte.getPagos().add(this);
+	}
+
+	public EstadoPago getPagoDeEstadoPago() {
+		return pagoDeEstadoPago;
+	}
+
+	public void setPagoDeEstadoPago(EstadoPago pagoDeEstadoPago) {
+		this.pagoDeEstadoPago = pagoDeEstadoPago;
+		this.pagoDeEstadoPago.getPagos().add(this);
 	}
 
 	public Viaje getViaje() {

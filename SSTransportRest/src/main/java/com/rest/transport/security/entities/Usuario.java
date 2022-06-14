@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
@@ -25,9 +26,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.rest.transport.entities.Conductor;
 import com.rest.transport.entities.CuentaBancaria;
 import com.rest.transport.entities.Direccion;
+import com.rest.transport.entities.Expedidor;
+import com.rest.transport.entities.Notificacion;
+import com.rest.transport.entities.Porte;
 import com.rest.transport.entities.Provincia;
+import com.rest.transport.entities.Transporte;
+import com.rest.transport.entities.Viaje;
 
 @Entity
 public abstract class Usuario {
@@ -55,7 +64,8 @@ public abstract class Usuario {
 	@Column(nullable=false)
 	private String telefono;
 	
-
+	@Column(nullable=false)
+	private boolean activo;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
 	@ManyToOne(optional=true)
@@ -74,13 +84,19 @@ public abstract class Usuario {
 	@JsonManagedReference
 	private CuentaBancaria cuentaBancaria;
 	
+	@OneToMany(mappedBy = "notificacionDeUsuario", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Collection<Notificacion>notificaciones;
+	
+	
 
 	
 	public Usuario() {
 		this.roles = new ArrayList<Rol>();
+		this.notificaciones = new ArrayList<Notificacion>();
 	}
 
-	public Usuario(String nombre, String nombreUsuario,String password , String documento, String email, String telefono, Direccion residenteDeDireccion,
+	public Usuario(String nombre, String nombreUsuario,String password , String documento, String email, String telefono,boolean activo, Direccion residenteDeDireccion,
 			Provincia operadorDeProvincia,CuentaBancaria cuentaBancaria) {
 		super();
 		this.nombre = nombre;
@@ -89,10 +105,12 @@ public abstract class Usuario {
 		this.documento = documento;
 		this.email = email;
 		this.telefono = telefono;
+		this.activo = activo;
 		this.residenteDeDireccion = residenteDeDireccion;
 		this.operadorDeProvincia = operadorDeProvincia;
 		this.cuentaBancaria = cuentaBancaria;
 		this.roles = new ArrayList<Rol>();
+		this.notificaciones = new ArrayList<Notificacion>();
 	}
 
 	public Long getId() {
@@ -151,6 +169,15 @@ public abstract class Usuario {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+	
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 
 	public Direccion getResidenteDeDireccion() {
 		return residenteDeDireccion;
@@ -187,10 +214,19 @@ public abstract class Usuario {
 		this.cuentaBancaria = cuentaBancaria;
 	}
 	
+	public Collection<Notificacion> getNotificaciones() {
+		return notificaciones;
+	}
+
+	public void setNotificaciones(Collection<Notificacion> notificaciones) {
+		this.notificaciones = notificaciones;
+	}
 	
 	
 	
 	////===================
+
+
 
 	public void addRoles(Rol rol) {
 		this.roles.add(rol);

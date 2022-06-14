@@ -29,4 +29,40 @@ public class RenewViajes {
 		}
 	}
 	
+	@Scheduled(cron="0 0/1 * * * *")
+	public void comprobarInicioViajes(){
+		Collection<Viaje> viajes = viajeService.findAllReservado();
+		Date fecha = new Date();
+		
+		for(Viaje v :viajes) {
+			if(v.getfHoraInicio().getTime()<fecha.getTime()){
+				if(v.getViajeDeConductor() != null && v.getViajeDeCamion()!=null ) {
+					
+					if(v.getViajeDeTipoRemolque() !=null) {
+						if(v.getViajeDeRemolque() !=null) {
+							viajeService.transitoEstado(v);
+						}
+						else {
+							v.setViajeDeConductor(null);
+							v.setViajeDeCamion(null);
+							v.setViajeDeRemolque(null);
+							viajeService.caducarEstado(v);
+						}
+					}
+					else {
+						viajeService.transitoEstado(v);		
+					}
+					
+				}
+				else {
+					v.setViajeDeConductor(null);
+					v.setViajeDeCamion(null);
+					v.setViajeDeRemolque(null);
+					viajeService.caducarEstado(v);
+				}
+			}
+		}
+		
+	}
+	
 }

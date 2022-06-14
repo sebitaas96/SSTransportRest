@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +70,19 @@ public class UsuarioController {
 			return new ResponseEntity(new Mensaje("Ha sucedido un error"), HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
+	@GetMapping("/{idUsuario}/ActivarUsuario")
+	public ResponseEntity<?>ActivarUsuario(@PathVariable("idUsuario")Long idUsuario ){
+		try { 
+			usuarioService.ActivarUsuario(idUsuario);
+			return new ResponseEntity(new Mensaje("Usuario activado"), HttpStatus.CREATED);
+		}
+		catch(Exception e){
+			return new ResponseEntity(new Mensaje("Ha sucedido un error"), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	
 	
 	

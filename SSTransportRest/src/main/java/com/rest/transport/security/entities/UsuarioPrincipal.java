@@ -20,13 +20,14 @@ public class UsuarioPrincipal implements UserDetails {
 	private String documento;
 	private String email;
 	private String telefono;
+	private boolean activo;
 	private Direccion residenteDeDireccion;
 	private Provincia operadorDeProvincia;
 	private CuentaBancaria cuentaBancaria;
 	private Collection<?extends GrantedAuthority> authorities;
 	
 	
-	public UsuarioPrincipal(String nombre, String nombreUsuario,String password , String documento, String email, String telefono, Direccion residenteDeDireccion,
+	public UsuarioPrincipal(String nombre, String nombreUsuario,String password , String documento, String email, String telefono, boolean activo,Direccion residenteDeDireccion,
 			Provincia operadorDeProvincia,CuentaBancaria cuentaBancaria,
 			Collection<? extends GrantedAuthority> authorities) {
 		super();
@@ -36,6 +37,7 @@ public class UsuarioPrincipal implements UserDetails {
 		this.documento = documento;
 		this.email = email;
 		this.telefono = telefono;
+		this.activo = activo;
 		this.residenteDeDireccion = residenteDeDireccion;
 		this.operadorDeProvincia = operadorDeProvincia;
 		this.cuentaBancaria = cuentaBancaria;
@@ -46,7 +48,7 @@ public class UsuarioPrincipal implements UserDetails {
 		List<GrantedAuthority>authorities = usuario.getRoles().stream().map(
 		rol-> new SimpleGrantedAuthority(rol.getRolNombre().name())).collect(Collectors.toList());	
 		return new UsuarioPrincipal(usuario.getNombre() , usuario.getNombreUsuario(),
-				usuario.getPassword() , usuario.getDocumento() , usuario.getEmail(),usuario.getTelefono(),usuario.getResidenteDeDireccion(),usuario.getOperadorDeProvincia(),usuario.getCuentaBancaria(), authorities);
+				usuario.getPassword() , usuario.getDocumento() , usuario.getEmail(),usuario.getTelefono(),usuario.isActivo(),usuario.getResidenteDeDireccion(),usuario.getOperadorDeProvincia(),usuario.getCuentaBancaria(), authorities);
 	}
 	
 	
@@ -103,6 +105,10 @@ public class UsuarioPrincipal implements UserDetails {
 		return telefono;
 	}
 
+	public boolean isActivo() {
+		return activo;
+	}
+	
 	public Direccion getResidenteDeDireccion() {
 		return residenteDeDireccion;
 	}
@@ -114,6 +120,8 @@ public class UsuarioPrincipal implements UserDetails {
 	public CuentaBancaria getCuentaBancaria() {
 		return cuentaBancaria;
 	}
+
+
 	
 	
 

@@ -2,7 +2,7 @@ package com.rest.transport.security.controller;
 
 
 import java.text.ParseException;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -77,7 +77,7 @@ public class AuthController {
             
       
             Usuario usuario =new Transporte(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), passwordEncoder.encode(nuevoUsuario.getPassword()),
-            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(),null,null,null);
+            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(),nuevoUsuario.isActivo(),null,null,null);
            
           /*  Set<Rol> roles = new HashSet<>();*/
             usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_TRANSPORTE).get());
@@ -86,7 +86,7 @@ public class AuthController {
           //  usuario.setRoles(roles);
 
             try {
-            	usuarioService.save(usuario);
+            	usuarioService.saveEmpresa(usuario);
             	return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
             }
             catch(Exception e) {
@@ -114,12 +114,12 @@ public class AuthController {
             
       
             Usuario usuario =new Porte(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), passwordEncoder.encode(nuevoUsuario.getPassword()),
-            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(), null,null,null);
+            		nuevoUsuario.getDocumento(),nuevoUsuario.getEmail(),nuevoUsuario.getTelefono(), nuevoUsuario.isActivo(),null,null,null);
             
             usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_PORTE).get());
             
             try {
-            	usuarioService.save(usuario);
+            	usuarioService.saveEmpresa(usuario);
             	return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
             }
             catch(Exception e) {
@@ -147,8 +147,8 @@ public class AuthController {
         }
             
       
-            Usuario usuario =new Conductor(nuevoConductor.getNombre(), nuevoConductor.getNombreUsuario(),nuevoConductor.getApellidos(), passwordEncoder.encode(nuevoConductor.getPassword()),
-            		nuevoConductor.getDocumento(),nuevoConductor.getEmail(),nuevoConductor.getTelefono(),nuevoConductor.isEstado(),nuevoConductor.getConductorDeTransporte(), null, 
+            Usuario usuario =new Conductor(nuevoConductor.getNombre(), nuevoConductor.getNombreUsuario(),nuevoConductor.getApellido(), passwordEncoder.encode(nuevoConductor.getPassword()),
+            		nuevoConductor.getDocumento(),nuevoConductor.getEmail(),nuevoConductor.getTelefono(),nuevoConductor.isActivo(),nuevoConductor.getConductorDeTransporte(), null, 
             		null,null);
             
             usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_CONDUCTOR).get());
@@ -183,8 +183,8 @@ public class AuthController {
         }
             
       
-            Usuario usuario =new Expedidor(nuevoExpedidor.getNombre(), nuevoExpedidor.getNombreUsuario(),nuevoExpedidor.getApellidos(), passwordEncoder.encode(nuevoExpedidor.getPassword()),
-            		nuevoExpedidor.getDocumento(),nuevoExpedidor.getEmail(),nuevoExpedidor.getTelefono(),nuevoExpedidor.isEstado(),nuevoExpedidor.getExpedidorDePorte(), null, 
+            Usuario usuario =new Expedidor(nuevoExpedidor.getNombre(), nuevoExpedidor.getNombreUsuario(),nuevoExpedidor.getApellido(), passwordEncoder.encode(nuevoExpedidor.getPassword()),
+            		nuevoExpedidor.getDocumento(),nuevoExpedidor.getEmail(),nuevoExpedidor.getTelefono(),nuevoExpedidor.isActivo(),nuevoExpedidor.getExpedidorDePorte(), null, 
             		null,null);
             
             usuario.addRoles(rolService.getByRolNombre(RolNombre.ROLE_EXPEDIDOR).get());
@@ -209,6 +209,10 @@ public class AuthController {
         }
         if(!usuarioService.existsByNombreUsuario(loginUsuario.getNombreUsuario())) {
         	return new ResponseEntity(new Mensaje("Usuario no existe"), HttpStatus.BAD_REQUEST);
+        }
+        Usuario u = usuarioService.getByNombreUsuario(loginUsuario.getNombreUsuario()).get(); 
+        if(!u.isActivo()){
+        	return new ResponseEntity(new Mensaje("Usuario sin confirmar"), HttpStatus.BAD_REQUEST);
         }
         
             

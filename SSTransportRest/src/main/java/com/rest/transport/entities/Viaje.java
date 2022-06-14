@@ -9,11 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@DynamicUpdate 
 public class Viaje {
 
 	@Id
@@ -64,6 +66,14 @@ public class Viaje {
 	@ManyToOne(optional=true)
 	private TipoRemolque viajeDeTipoRemolque;
 	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	@ManyToOne(optional=true)
+	private Camion viajeDeCamion;
+	
+	@JsonIgnoreProperties({"hibernateLazyInitializer " , "handler"})
+	@ManyToOne(optional=true)
+	private Remolque viajeDeRemolque;
+	
 	@OneToOne(optional=true)
 	@JsonManagedReference
 	private Pago pago;
@@ -76,7 +86,7 @@ public class Viaje {
 
 	public Viaje(String descripcion , float precio, int distancia, int tiempo, Date fHoraInicio, Date fHoraFin, Direccion recogidaDeDireccion,
 			Direccion entregaDeDireccion, Transporte viajeDeTransporte, Expedidor viajeDeExpedidor,Porte viajeDePorte , Conductor viajeDeConductor,
-			TipoCamion viajeDeTipoCamion, TipoRemolque viajeDeTipoRemolque, Pago pago, Estado viajeDeEstado) {
+			TipoCamion viajeDeTipoCamion, TipoRemolque viajeDeTipoRemolque,Camion viajeDeCamion , Remolque viajeDeRemolque,Pago pago, Estado viajeDeEstado) {
 		super();
 		this.descripcion = descripcion;
 		this.precio = precio;
@@ -95,6 +105,8 @@ public class Viaje {
 		this.viajeDeTipoCamion = viajeDeTipoCamion;
 		this.viajeDeTipoCamion.getViajes().add(this);
 		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
+		this.viajeDeCamion = viajeDeCamion;
+		this.viajeDeRemolque = viajeDeRemolque;
 		this.pago = pago;
 		this.viajeDeEstado = viajeDeEstado;
 		this.viajeDeEstado.getViajes().add(this);
@@ -207,7 +219,6 @@ public class Viaje {
 
 	public void setViajeDeConductor(Conductor viajeDeConductor) {
 		this.viajeDeConductor = viajeDeConductor;
-		this.viajeDeConductor.getViajes().add(this);
 	}
 
 
@@ -230,6 +241,24 @@ public class Viaje {
 	
 	public TipoRemolque getViajeDeTipoRemolque() {
 		return viajeDeTipoRemolque;
+	}
+	
+	
+
+	public Camion getViajeDeCamion() {
+		return viajeDeCamion;
+	}
+
+	public void setViajeDeCamion(Camion viajeDeCamion) {
+		this.viajeDeCamion = viajeDeCamion;
+	}
+
+	public Remolque getViajeDeRemolque() {
+		return viajeDeRemolque;
+	}
+
+	public void setViajeDeRemolque(Remolque viajeDeRemolque) {
+		this.viajeDeRemolque = viajeDeRemolque;
 	}
 
 	public void setViajeDeTipoRemolque(TipoRemolque viajeDeTipoRemolque) {

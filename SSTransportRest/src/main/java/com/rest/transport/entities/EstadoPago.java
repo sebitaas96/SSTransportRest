@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +16,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-public class Estado {
+public class EstadoPago {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -25,50 +25,50 @@ public class Estado {
 	@Column(unique = true)
 	private String nombre;
 	
-	@OneToMany(fetch = FetchType.EAGER , mappedBy="viajeDeEstado", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="pagoDeEstadoPago", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private Collection<Viaje> viajes;
+	private Collection<Pago> pagos;
 	
-	public Estado() {
-		this.viajes = new ArrayList<Viaje>();
+	public EstadoPago() {
+		this.pagos = new ArrayList<Pago>();
+		
+	}
+	
+	
+	public EstadoPago(String nombre) {
+		this.nombre = nombre;
+		this.pagos = new ArrayList<Pago>();
 	}
 
-	public Estado(String nombre) {
-		super();
-		this.nombre = nombre;
-		this.viajes = new ArrayList<Viaje>();
-	}
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public String getNombre() {
 		return nombre;
 	}
 
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public Collection<Viaje> getViajes() {
-		return viajes;
+
+	public Collection<Pago> getPagos() {
+		return pagos;
 	}
 
-	public void setViajes(Collection<Viaje> viajes) {
-		this.viajes = viajes;
+
+	public void setPagos(Collection<Pago> pagos) {
+		this.pagos = pagos;
 	}
-	
-	public void removeViaje(Viaje v) {
-		this.viajes.remove(v);
-		v.setViajeDeEstado(null);
-	}
-	
-	
 	
 	
 }

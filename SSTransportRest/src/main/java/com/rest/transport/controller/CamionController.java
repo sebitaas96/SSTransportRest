@@ -62,7 +62,13 @@ public class CamionController {
 	public ResponseEntity<?>cambiarEstadoCamion(@RequestBody CambiarEstado cambiarEstado){
 		try { 
 			camionService.CambiarEstado(cambiarEstado);
-			return new ResponseEntity(new Mensaje("Estado cambiado"), HttpStatus.CREATED);
+			if(cambiarEstado.isEstado()) {
+				return new ResponseEntity(new Mensaje("Camion activado"), HttpStatus.CREATED);	
+			}
+			else {
+				return new ResponseEntity(new Mensaje("Camion desactivado"), HttpStatus.CREATED);
+			}
+			
 		}
 		catch(Exception e){
 			return new ResponseEntity(new Mensaje("Ha sucedido un error"), HttpStatus.BAD_REQUEST);

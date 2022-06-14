@@ -4,12 +4,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 
+import com.rest.transport.entities.Camion;
 import com.rest.transport.entities.Conductor;
 import com.rest.transport.entities.Direccion;
 import com.rest.transport.entities.Estado;
 import com.rest.transport.entities.Expedidor;
 import com.rest.transport.entities.Pago;
 import com.rest.transport.entities.Porte;
+import com.rest.transport.entities.Remolque;
 import com.rest.transport.entities.TipoCamion;
 import com.rest.transport.entities.TipoRemolque;
 import com.rest.transport.entities.Transporte;
@@ -57,6 +59,12 @@ public class NuevoViaje {
 	
 	@Column(nullable=true)
 	private TipoRemolque viajeDeTipoRemolque;
+	
+	@Column(nullable=true)
+	private Camion viajeDeCamion;
+	
+	@Column(nullable=true)
+	private Remolque viajeDeRemolque;
 	
 	@Column(nullable=true)
 	private Pago pago;
@@ -174,6 +182,23 @@ public class NuevoViaje {
 
 	public void setViajeDeTipoRemolque(TipoRemolque viajeDeTipoRemolque) {
 		this.viajeDeTipoRemolque = viajeDeTipoRemolque;
+	}
+
+	
+	public Camion getViajeDeCamion() {
+		return viajeDeCamion;
+	}
+
+	public void setViajeDeCamion(Camion viajeDeCamion) {
+		this.viajeDeCamion = viajeDeCamion;
+	}
+
+	public Remolque getViajeDeRemolque() {
+		return viajeDeRemolque;
+	}
+
+	public void setViajeDeRemolque(Remolque viajeDeRemolque) {
+		this.viajeDeRemolque = viajeDeRemolque;
 	}
 
 	public Pago getPago() {

@@ -61,7 +61,12 @@ public class RemolqueController {
 	public ResponseEntity<?>cambiarEstadoRemolque(@RequestBody CambiarEstado cambiarEstado){
 		try { 
 			remolqueService.CambiarEstado(cambiarEstado);
-			return new ResponseEntity(new Mensaje("Estado cambiado"), HttpStatus.CREATED);
+			if(cambiarEstado.isEstado()) {
+				return new ResponseEntity(new Mensaje("Remolque activado"), HttpStatus.CREATED);	
+			}
+			else {
+				return new ResponseEntity(new Mensaje("Remolque desactivado"), HttpStatus.CREATED);
+			}
 		}
 		catch(Exception e){
 			return new ResponseEntity(new Mensaje("Ha sucedido un error"), HttpStatus.BAD_REQUEST);
