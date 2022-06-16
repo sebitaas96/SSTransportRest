@@ -60,8 +60,8 @@ public class CreateDatos implements CommandLineRunner {
         rolService.save(rolTransporte);
         rolService.save(rolPorte);
         rolService.save(rolConductor);
-        rolService.save(rolExpedidor);
-        */
+        rolService.save(rolExpedidor);*/
+        
     	
     	/*Estados*/
     	/*Estado estado1 = new Estado("Expedido");
@@ -93,7 +93,7 @@ public class CreateDatos implements CommandLineRunner {
     	gravedadService.save(gravedad3);*/
     	
     	/* Tipo de Camiones*/
-    /*	TipoCamion camionEstandar = new TipoCamion("Tractora estandar" , true);
+    	/*TipoCamion camionEstandar = new TipoCamion("Tractora estandar" , true);
     	TipoCamion camion75 = new TipoCamion("Camion de 7,5T" , false);
     	TipoCamion camion35elevador = new TipoCamion("Camion de 3,5T con elevador trasero" , false);
     	TipoCamion camion35sinelevador = new TipoCamion("Camion de 3,5T sin elevador trasero" , false);
@@ -105,9 +105,9 @@ public class CreateDatos implements CommandLineRunner {
     	tipoCamionService.save(camion35sinelevador);
     	tipoCamionService.save(furgoneta35elevador);
     	tipoCamionService.save(furgoneta35sinelevador);*/
-    	
-    	/*Tipo de Remolques*/
-    /*	TipoRemolque lonaTauliner =new TipoRemolque("Lona o Tauliner");
+    
+   	/*Tipo de Remolques*/
+    	/*TipoRemolque lonaTauliner =new TipoRemolque("Lona o Tauliner");
     	TipoRemolque cajaCerrada =new TipoRemolque("Caja cerrada");
     	TipoRemolque semirremolque =new TipoRemolque("Semirremolque");
     	TipoRemolque trenCarretera =new TipoRemolque("Tren de carretera");

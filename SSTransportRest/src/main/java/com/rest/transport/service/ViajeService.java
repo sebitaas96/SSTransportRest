@@ -17,6 +17,8 @@ import com.rest.transport.entities.Camion;
 import com.rest.transport.entities.Conductor;
 import com.rest.transport.entities.Direccion;
 import com.rest.transport.entities.Estado;
+import com.rest.transport.entities.Expedidor;
+import com.rest.transport.entities.Porte;
 import com.rest.transport.entities.Remolque;
 import com.rest.transport.entities.Transporte;
 import com.rest.transport.entities.Viaje;
@@ -24,6 +26,8 @@ import com.rest.transport.repository.CamionRepository;
 import com.rest.transport.repository.ConductorRepository;
 import com.rest.transport.repository.DireccionRepository;
 import com.rest.transport.repository.EstadoRepository;
+import com.rest.transport.repository.ExpedidorRepository;
+import com.rest.transport.repository.PorteRepository;
 import com.rest.transport.repository.RemolqueRepository;
 import com.rest.transport.repository.TransporteRepository;
 import com.rest.transport.repository.ViajeRepository;
@@ -57,6 +61,12 @@ public class ViajeService {
 	RemolqueRepository remolqueRepository;
 	
 	@Autowired
+	ExpedidorRepository expedidorRepository;
+	
+	@Autowired
+	PorteRepository porteRepository;
+	
+	@Autowired
 	CamionService camionService;
 	
 	@Autowired
@@ -83,7 +93,8 @@ public class ViajeService {
 		try {
 			Estado estado = estadoRepository.findByNombre("Expedido");
 			viaje.setViajeDeEstado(estado);
-			viajeRepository.saveAndFlush(viaje);	
+			viajeRepository.saveAndFlush(viaje);
+			
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());

@@ -25,7 +25,7 @@ public class Gravedad {
 	@Column(unique = true)
 	private String nombre;
 	
-	@OneToMany(fetch = FetchType.EAGER , mappedBy="notificacionDeGravedad", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="notificacionDeGravedad", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Notificacion> notificaciones;
 	

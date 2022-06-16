@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.rest.transport.entities.Gravedad;
+import com.rest.transport.entities.Notificacion;
 import com.rest.transport.entities.Viaje;
+import com.rest.transport.service.NotificacionService;
 import com.rest.transport.service.ViajeService;
 
 @Component
@@ -15,6 +18,9 @@ public class RenewViajes {
 
 	@Autowired
 	ViajeService viajeService;
+	
+	@Autowired
+	NotificacionService notificacionService;
 	
 	@Scheduled(cron="0 0/1 * * * *")
 	public void comprobarViajes() {

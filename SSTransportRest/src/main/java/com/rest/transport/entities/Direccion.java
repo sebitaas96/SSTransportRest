@@ -33,11 +33,11 @@ public class Direccion {
 	@ManyToOne
 	private Localidad direccionDeLocalidad;
 
-	@OneToMany(mappedBy="recogidaDeDireccion" , cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy="recogidaDeDireccion" , cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private Collection<Viaje> recogidas;
 	
-	@OneToMany(mappedBy="entregaDeDireccion" , cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy="entregaDeDireccion" , cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private Collection<Viaje> entregas;
 	

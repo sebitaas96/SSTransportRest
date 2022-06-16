@@ -22,10 +22,7 @@ import com.rest.transport.security.entities.Usuario;
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 public class Conductor extends Usuario{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+
 	private String apellido;
 	
 
@@ -77,13 +74,6 @@ public class Conductor extends Usuario{
 	}
 
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 
 	public String getApellido() {

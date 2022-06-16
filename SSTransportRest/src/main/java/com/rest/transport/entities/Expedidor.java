@@ -19,9 +19,6 @@ import com.rest.transport.security.entities.Usuario;
 @Entity
 public class Expedidor extends Usuario {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	
 	private String apellido;
 	
@@ -52,13 +49,6 @@ public class Expedidor extends Usuario {
 		this.viajes = new ArrayList<Viaje>();
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getApellido() {
 		return apellido;

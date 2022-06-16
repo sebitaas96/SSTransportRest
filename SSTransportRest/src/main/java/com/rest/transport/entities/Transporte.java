@@ -7,6 +7,9 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,7 +20,8 @@ import com.rest.transport.security.entities.Usuario;
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 public class Transporte extends Usuario {
-	
+
+
 	@OneToMany(mappedBy = "conductorDeTransporte", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Conductor> conductores;

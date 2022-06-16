@@ -33,7 +33,7 @@ public class ExpedidorService {
     		for(Rol rol : roles) {
     			e.removeRoles(rol);
     		}
-    		expedidorRepository.save(e);
+    		expedidorRepository.saveAndFlush(e);
     	}
     	expedidorRepository.deleteById(idExpedidor);
     }

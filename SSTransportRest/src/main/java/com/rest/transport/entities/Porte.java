@@ -18,10 +18,6 @@ import com.rest.transport.security.entities.Usuario;
 @Entity
 public class Porte extends Usuario {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
 	@OneToMany(mappedBy = "expedidorDePorte", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Collection<Expedidor>expedidores;
@@ -58,13 +54,6 @@ public class Porte extends Usuario {
 		this.pagos = new ArrayList<Pago>();
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Collection<Expedidor> getExpedidores() {
 		return expedidores;
